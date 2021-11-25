@@ -9,7 +9,6 @@ namespace OngProject.Context
 {
     public class OngContext : DbContext
     {
-        private const string Schema = "";
         public OngContext(DbContextOptions<OngContext> options) : base(options)
         {
 
@@ -17,7 +16,6 @@ namespace OngProject.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.HasDefaultSchema(Schema);
           
         }
         public override int SaveChanges()

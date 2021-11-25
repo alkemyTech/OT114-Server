@@ -19,11 +19,18 @@ namespace OngProject.Controllers
 
         [HttpGet]
         [Route("members")]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             var members = _memberRepository.GetMembers();
 
-            return Ok(members);
+            if (!members.Any())
+            {
+                return NoContent();
+            }
+
+            var listado = members.Select(x => new { x.Name, x.Image}).ToList();
+
+            return Ok(listado);
         }
 
         [HttpPost]
