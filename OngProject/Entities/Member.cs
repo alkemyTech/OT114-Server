@@ -20,9 +20,7 @@ namespace OngProject.Entities
         [Required]
         public string Image { get; set; }
         public string Description { get; set; }
-        public bool IsDeleted { get; set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        public DateTime timestamp { get; set; } = DateTime.Now;
     }
 }
