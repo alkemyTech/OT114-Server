@@ -10,7 +10,7 @@ namespace OngProject.Controllers
     [Route("api/[controller]")]
     public class MemberController : ControllerBase
     {
-
+        
 
     }
 }
