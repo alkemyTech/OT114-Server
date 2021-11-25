@@ -18,8 +18,17 @@ namespace OngProject.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDefaultSchema(Schema);
-
           
+        }
+        public override int SaveChanges()
+        {
+            foreach(var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted && 
+                    e.Metadata.GetProperties().Any(x => x.Name == "IsDeleted")))
+            {
+                item.State = EntityState.Unchanged;
+                item.CurrentValues["IsDeleted"] = true;
+            }
+            return base.SaveChanges();
         }
         public DbSet<Member> Members { get; set; }
        
