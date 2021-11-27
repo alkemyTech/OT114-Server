@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OngProject.Entities
+namespace OngProject.ViewModel.OrganizacionViewModel
 {
-    public class Organizacion
+    public class OrganizacionPostVM
     {
-        public int Id { get; set; }
-        
+        [Required]
         public string Name { get; set; }
-        
+
+        [Required]
         public byte[] Image { get; set; }
-        
+
         public string Adress { get; set; }
 
         public int? Phone { get; set; }
-        
+
+        [Required]
         public string Email { get; set; }
 
+        [Required]
         public string WelcomeText { get; set; }
 
         public string AboutUsText { get; set; }
 
-        public DateTime TimeStamps { get; set; } 
-
-
+        public DateTime TimeStamps { get; set; }
     }
 }
