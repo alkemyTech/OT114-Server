@@ -11,6 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using OngProject.Context;
+using OngProject.Entities;
+using OngProject.Repositories;
+using OngProject.Interfaces;
 
 namespace OngProject
 {
@@ -32,6 +38,17 @@ namespace OngProject
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OngProject", Version = "v1" });
             });
+
+            // Conectar la Base de Datos
+            services.AddEntityFrameworkSqlServer();
+            services.AddDbContextPool<OngContext>(optionsAction: (provider, builder) =>
+            {
+                builder.UseInternalServiceProvider(provider);
+                builder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Database=OngDb;Integrated Security=True;");
+            });
+
+            // Inyección de dependencia de repositorios:
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

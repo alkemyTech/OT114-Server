@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Emmanuel\\source\\repos\\t46-project\\OngProject\\OngProject\\OngProject.csproj": {}
+    "A:\\Alkemy\\Aceleración\\ONG\\OT114-Server\\OngProject\\OngProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Emmanuel\\source\\repos\\t46-project\\OngProject\\OngProject\\OngProject.csproj": {
+    "A:\\Alkemy\\Aceleración\\ONG\\OT114-Server\\OngProject\\OngProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Emmanuel\\source\\repos\\t46-project\\OngProject\\OngProject\\OngProject.csproj",
+        "projectUniqueName": "A:\\Alkemy\\Aceleración\\ONG\\OT114-Server\\OngProject\\OngProject.csproj",
         "projectName": "OngProject",
-        "projectPath": "C:\\Users\\Emmanuel\\source\\repos\\t46-project\\OngProject\\OngProject\\OngProject.csproj",
-        "packagesPath": "C:\\Users\\Emmanuel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Emmanuel\\source\\repos\\t46-project\\OngProject\\OngProject\\obj\\",
+        "projectPath": "A:\\Alkemy\\Aceleración\\ONG\\OT114-Server\\OngProject\\OngProject.csproj",
+        "packagesPath": "C:\\Users\\Mariel\\.nuget\\packages\\",
+        "outputPath": "A:\\Alkemy\\Aceleración\\ONG\\OT114-Server\\OngProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Emmanuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mariel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,6 +40,26 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
@@ -66,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
