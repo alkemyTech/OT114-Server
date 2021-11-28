@@ -5980,28 +5980,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Luciano\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Enguelbert\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Aceleracion .Net\\OT114-Server\\OngProject\\OngProject.csproj",
+      "projectUniqueName": "C:\\Users\\Enguelbert\\Desktop\\OT114-Server\\OngProject\\OngProject.csproj",
       "projectName": "OngProject",
-      "projectPath": "F:\\Aceleracion .Net\\OT114-Server\\OngProject\\OngProject.csproj",
-      "packagesPath": "C:\\Users\\Luciano\\.nuget\\packages\\",
-      "outputPath": "F:\\Aceleracion .Net\\OT114-Server\\OngProject\\obj\\",
+      "projectPath": "C:\\Users\\Enguelbert\\Desktop\\OT114-Server\\OngProject\\OngProject.csproj",
+      "packagesPath": "C:\\Users\\Enguelbert\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Enguelbert\\Desktop\\OT114-Server\\OngProject\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Luciano\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Enguelbert\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
