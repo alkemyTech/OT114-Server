@@ -25,8 +25,7 @@ namespace OngProject.Entities
 
         public string AboutUsText { get; set; }
 
-        public DateTime TimeStamps { get; set; } 
-
+        public DateTime TimeStamps { get; set; } = DateTime.Now;
 
     }
 }
