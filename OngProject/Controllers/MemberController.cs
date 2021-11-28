@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OngProject.Entities;
 using OngProject.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -34,15 +35,41 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(Member postMember)
         {
-            return Ok();
+            var _postMember = new Member
+            {
+                Name = postMember.Name,
+                FacebookUrl = postMember.FacebookUrl,
+                InstagramUrl = postMember.InstagramUrl,
+                LinkedinUrl = postMember.LinkedinUrl,
+                Image = postMember.Image,
+                Description = postMember.Description
+            };
+
+            _memberRepository.Insert(_postMember);
+
+            return Ok(_postMember);
         }
 
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(Member putMember)
         {
-            return Ok();
+            var _putMember = _memberRepository.GetById(putMember.Id);
+
+            if (_putMember == null)
+                return NotFound($"el miembro con id {_putMember.Id} no existe.");
+
+            _putMember.Name = putMember.Name;
+            _putMember.FacebookUrl = putMember.FacebookUrl;
+            _putMember.InstagramUrl = putMember.InstagramUrl;
+            _putMember.LinkedinUrl = putMember.LinkedinUrl;
+            _putMember.Image = putMember.Image;
+            _putMember.Description = putMember.Description;
+
+            _memberRepository.Update(_putMember);
+
+            return Ok(_putMember);
         }
 
         [HttpDelete]

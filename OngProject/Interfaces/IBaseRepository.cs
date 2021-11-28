@@ -7,11 +7,11 @@ namespace OngProject.Interfaces
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        List<TEntity> GetAll();
+        List<TEntity> GetAllEntities();
         TEntity GetById(int id);
         TEntity Insert(TEntity entity);
+        TEntity Update(TEntity entity);
         void Delete(int id);
-        TEntity Update(TEntity enity);
 
     }
 }
