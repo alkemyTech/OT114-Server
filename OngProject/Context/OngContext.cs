@@ -20,6 +20,6 @@ namespace OngProject.Context
         }
         
         public DbSet<Member> Members { get; set; }
-       
+        public DbSet<News> News { get; set; }
     }
 }
