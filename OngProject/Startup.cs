@@ -14,7 +14,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OngProject.Repositories;
-using OngProject.Unit_Of_Work;
 
 namespace OngProject
 {
@@ -45,7 +44,6 @@ namespace OngProject
                 Configuration.GetConnectionString("SomosMasConnection"));
             });
             services.AddScoped<IOrganizacionRepository, OrganizacionRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

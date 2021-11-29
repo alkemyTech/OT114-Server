@@ -2,7 +2,6 @@
 using OngProject.Context;
 using OngProject.Entities;
 using OngProject.Repositories;
-using OngProject.Unit_Of_Work;
 using OngProject.ViewModel.OrganizacionViewModel;
 using System;
 using System.Collections.Generic;
@@ -17,22 +16,19 @@ namespace OngProject.Controllers
     {
 
         private readonly IOrganizacionRepository _organizacionRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        public OrganizacionesController(IOrganizacionRepository organizacionRepository, IUnitOfWork unitOfWork)
+        public OrganizacionesController(IOrganizacionRepository organizacionRepository)
         {
-            _organizacionRepository = organizacionRepository;
-            _unitOfWork = unitOfWork;
-             
+            _organizacionRepository = organizacionRepository;            
         }
+
         [HttpGet]
         public IActionResult Get()
         {
-
-            
-            var OrganizacionesList = _unitOfWork.Organizacion.GetAllEntities();
+            var OrganizacionesList = _organizacionRepository.GetAllEntities();
             
             return Ok(OrganizacionesList);
         }
+
         [HttpPost]
         public IActionResult Post(OrganizacionPostVM  organizacionPostVM)
         {
@@ -51,22 +47,22 @@ namespace OngProject.Controllers
             {
                 try
                 {
-                    _unitOfWork.Organizacion.Add(organizacion);
+                    _organizacionRepository.Add(organizacion);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    return BadRequest();
+                    return BadRequest(ex.Message);
                 }
             }
-            
-            
+                       
             return Ok(organizacion);
         }
+
         [HttpPut]
         public IActionResult Put(Organizacion organizacion)
         {
-            var organizacionExist = _unitOfWork.Organizacion.Get(organizacion.Id);
+            var organizacionExist = _organizacionRepository.Get(organizacion.Id);
             if (organizacionExist == null)
             {
                 return NotFound($"la organizacion con id {organizacion.Id} no existe.");
@@ -82,27 +78,28 @@ namespace OngProject.Controllers
                     organizacionExist.Email = organizacion.Email;
                     organizacionExist.WelcomeText = organizacion.WelcomeText;
                     organizacionExist.AboutUsText = organizacion.AboutUsText;
-                    _unitOfWork.Organizacion.Update(organizacionExist);
+                    _organizacionRepository.Update(organizacionExist);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    return BadRequest();
+                    return BadRequest(ex.Message);
                 }
             }
 
             return Ok(organizacionExist);
         }
+
         [HttpDelete]
         [Route("{Id}")]
         public IActionResult Delete(int Id)
         {
-            var organizacion= _unitOfWork.Organizacion.Get(Id);
+            var organizacion= _organizacionRepository.Get(Id);
             if(organizacion == null)
             {
                 return NotFound($"la organizacion con id {Id} no existe.");
             }
-            _unitOfWork.Organizacion.Delete(Id);
+            _organizacionRepository.Delete(Id);
             return Ok($"la organizacion {organizacion.Name} se elimino correctamente.");
         }
        
