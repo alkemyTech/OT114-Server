@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using OngProject.Data;
+using OngProject.Interfaces;
+using OngProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,11 @@ namespace OngProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add DbContext
+            services.AddDbContext<ONGDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ONGDBConnection")));
+
+            // Add Services
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
