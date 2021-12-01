@@ -79,6 +79,7 @@ namespace OngProject.Controllers
         }
 
         // PUT api/<CategoriesController>
+        [HttpPut]
         public IActionResult Put(CategoriesPutVM model)
         {
             try
