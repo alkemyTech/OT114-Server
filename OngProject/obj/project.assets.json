@@ -5978,31 +5978,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fernandez.martin\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Luciano\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj",
+      "projectUniqueName": "F:\\Aceleracion\\OT114-Server\\OngProject\\OngProject.csproj",
       "projectName": "OngProject",
-      "projectPath": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj",
-      "packagesPath": "C:\\Users\\fernandez.martin\\.nuget\\packages\\",
-      "outputPath": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\obj\\",
+      "projectPath": "F:\\Aceleracion\\OT114-Server\\OngProject\\OngProject.csproj",
+      "packagesPath": "C:\\Users\\Luciano\\.nuget\\packages\\",
+      "outputPath": "F:\\Aceleracion\\OT114-Server\\OngProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\fernandez.martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Luciano\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://www.nuget.org/api/v2/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
@@ -6057,7 +6061,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

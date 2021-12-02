@@ -10,5 +10,6 @@ namespace OngProject.Data
         {
         }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Member> Members { get; set; }
     }
 }
