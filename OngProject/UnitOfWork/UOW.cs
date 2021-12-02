@@ -10,6 +10,7 @@ namespace OngProject.UnitOfWork
         #region Repositories Declaration
 
         private CategoryRepository _categoryRepository;
+        private MemberRepository _memberRepository;
         
         #endregion
 
@@ -29,6 +30,17 @@ namespace OngProject.UnitOfWork
                     _categoryRepository = new CategoryRepository(_context);
                 }
                 return _categoryRepository;
+            }
+        }
+        public MemberRepository MemberRepository
+        {
+            get
+            {
+                if (_memberRepository == null)
+                {
+                    _memberRepository = new MemberRepository(_context);
+                }
+                return _memberRepository;
             }
         }
 
