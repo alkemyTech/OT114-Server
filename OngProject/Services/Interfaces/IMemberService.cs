@@ -11,7 +11,7 @@ namespace OngProject.Services.Interfaces
         Task<List<Member>> GetAll();
         Task<Member> GetById(int id);
         Task<Member> Insert(Member member);
-        Task Delete(int id);
+        void Delete(int id);
         Task<Member> Update(Member member);
     }
 }
