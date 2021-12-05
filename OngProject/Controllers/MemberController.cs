@@ -54,14 +54,14 @@ namespace OngProject.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var member = _memberService.GetById(id);
 
             if (member == null)
                 return NotFound($"el miembro con id {id} no existe.");
 
-            await _memberService.Delete(id);
+            _memberService.Delete(id);
 
             return Ok("el miembro se borró correctamente.");
         }

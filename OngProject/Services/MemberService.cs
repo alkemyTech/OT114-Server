@@ -30,9 +30,9 @@ namespace OngProject.Services
             var member = await _unitOfWork.MemberRepository.Insert(mem);
             return member;
         }
-        public async Task Delete(int id)
+        public void Delete(int id)
         {
-
+            _unitOfWork.MemberRepository.Delete(id);
         }
         public async Task<Member> Update(Member mem)
         {
