@@ -10,8 +10,13 @@ namespace OngProject.UnitOfWork
         #region Repositories Declaration
 
         private CategoryRepository _categoryRepository;
-        
+        private UserRepository _userRepository;
+
         #endregion
+        public UOW()
+        {
+            
+        }
 
         public UOW(ONGDBContext context)
         {
@@ -29,6 +34,22 @@ namespace OngProject.UnitOfWork
                     _categoryRepository = new CategoryRepository(_context);
                 }
                 return _categoryRepository;
+
+
+            }
+        }
+
+        public UserRepository userRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = new UserRepository(_context);
+                }
+                return _userRepository;
+
+
             }
         }
 

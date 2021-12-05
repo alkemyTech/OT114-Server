@@ -5978,23 +5978,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fernandez.martin\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Mariel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj",
+      "projectUniqueName": "A:\\Alkemy\\Aceleración\\ONG-V2\\OT114-Server\\OngProject\\OngProject.csproj",
       "projectName": "OngProject",
-      "projectPath": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj",
-      "packagesPath": "C:\\Users\\fernandez.martin\\.nuget\\packages\\",
-      "outputPath": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\obj\\",
+      "projectPath": "A:\\Alkemy\\Aceleración\\ONG-V2\\OT114-Server\\OngProject\\OngProject.csproj",
+      "packagesPath": "C:\\Users\\Mariel\\.nuget\\packages\\",
+      "outputPath": "A:\\Alkemy\\Aceleración\\ONG-V2\\OT114-Server\\OngProject\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\fernandez.martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mariel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6002,7 +5998,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://www.nuget.org/api/v2/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
@@ -6057,7 +6053,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
