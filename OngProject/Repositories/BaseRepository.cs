@@ -6,24 +6,51 @@ using System.Threading.Tasks;
 
 namespace OngProject.Repositories
 {
-    public class BaseRepository<T> where T : class
+
+    public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity> where TEntity : class
+         where TContext : DbContext
     {
-        protected readonly ONGDBContext _context;
-        protected readonly DbSet<T> _model;
-
-        public BaseRepository(ONGDBContext context)
+        private readonly TContext _dbContext;
+        private DbSet<TEntity> _dbSet;
+        protected DbSet<TEntity> DbSet
         {
-            _context = context;
-            _model = context.Set<T>();
+            get { return _dbSet ??= _dbContext.Set<TEntity>(); }
         }
-
+        protected BaseRepository(TContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         #region Public Methods
-
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public List<TEntity> GetAllEntities()
         {
-            return await _model.ToListAsync();
+            return _dbContext.Set<TEntity>().ToList();
         }
-		
-		#endregion
+        public TEntity GetEntity(int id)
+        {
+            return _dbContext.Set<TEntity>().Find(id);
+
+        }
+        public TEntity AddEntity(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Add(entity);
+            _dbContext.SaveChanges();
+            return entity;
+        }
+        public TEntity UpdateEntity(TEntity entity)
+        {
+            _dbContext.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+            return entity;
+
+        }
+        public void DeleteEntity(int id)
+        {
+            var delete = _dbContext.Find<TEntity>(id);
+            _dbContext.Remove(delete);
+            _dbContext.SaveChanges();
+        }
+        #endregion
     }
+
 }

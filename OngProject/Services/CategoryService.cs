@@ -17,9 +17,9 @@ namespace OngProject.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Category>> GetAll()
+        public List<Category> GetAll()
         {
-            var category = await _unitOfWork.CategoryRepository.GetAll();
+            var category =  _unitOfWork.CategoryRepository.GetAllEntities();
             return category.ToList();
         }
     }

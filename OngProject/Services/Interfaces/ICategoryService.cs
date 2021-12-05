@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace OngProject.Interfaces
 {
-    public interface ICategoryService
+    public interface ICategoryService 
     {
-        Task<List<Category>> GetAll();        
+       List<Category> GetAll();        
     }
 }

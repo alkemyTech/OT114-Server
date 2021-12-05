@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Interfaces;
 using OngProject.Models;
+using OngProject.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,21 +13,23 @@ namespace OngProject.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService )
         {
             _categoryService = categoryService;
         }
                 
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> GetAll()
+        public ActionResult<List<Category>> GetAll()
         {
-            var categories = await _categoryService.GetAll();
-            if (categories.Count == 0)
+            //var categories =  _categoryService.GetAll();
+            //Replace here //
+            var category = _categoryService.GetAll();
+            if (category.Count == 0)
             {
                 return NotFound();
             }
 
-            return Ok(categories);
+            return Ok(category);
         }
     }
 }

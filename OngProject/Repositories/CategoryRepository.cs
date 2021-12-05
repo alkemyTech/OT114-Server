@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace OngProject.Repositories
 {
-    public class CategoryRepository : BaseRepository<Category>
+    public class CategoryRepository : BaseRepository<Category, ONGDBContext>, ICategoryRepository
     {
-        public CategoryRepository(ONGDBContext context ):base(context)
+        public CategoryRepository(ONGDBContext context) : base(context)
         {
+            
         }
+       
     }
 }

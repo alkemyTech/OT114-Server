@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OngProject.Data;
 using OngProject.Interfaces;
+using OngProject.Repositories;
 using OngProject.Services;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,18 @@ namespace OngProject
         public void ConfigureServices(IServiceCollection services)
         {
             // Add DbContext
-            services.AddDbContext<ONGDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ONGDBConnection")));
+            services.AddEntityFrameworkSqlServer();
+            services.AddDbContext<ONGDBContext>((services, options) =>
+            {
+                options.UseInternalServiceProvider(services);
+                options.UseSqlServer(
+            Configuration.GetConnectionString("ONGDBConnection"));
+            });
 
             // Add Services
-            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ISlideRepository, SlideRepository>();
+            //services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
