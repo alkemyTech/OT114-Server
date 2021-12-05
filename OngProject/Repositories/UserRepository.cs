@@ -29,7 +29,7 @@ namespace OngProject.Repositories
 
         public User GetUser(User user)
         {
-            return Get(user.Id);
+            return Get(user.IdUser);
         }
 
         public User UpdateUser(User user)

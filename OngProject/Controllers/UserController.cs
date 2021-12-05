@@ -66,13 +66,14 @@ namespace OngProject.Controllers
             //var users = _context.Users.ToList();
             var userVM = new List<UserVM>();
 
-            if (user.Id > 0)
+            if (user.Id != null)
             {
-                var userById = _userRepository.Get(user.Id);
+                var userById = _userRepository.Get(user.IdUser);
 
                 userVM.Add(new UserVM
                 {
                     Id = user.Id,
+                    IdUser = user.IdUser,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
@@ -100,7 +101,7 @@ namespace OngProject.Controllers
             // var perfil = _context.Perfiles.ToList();
             //perfil = perfil.Where(x => x.Id == ap.Id).ToList();
 
-            var userExists = _userRepository.Get(us.Id);
+            var userExists = _userRepository.Get(us.IdUser);
 
             if (userExists == null)
             {
@@ -124,7 +125,7 @@ namespace OngProject.Controllers
         [HttpPut] //Verbo de http PUT
         public IActionResult Put(User us)
         {
-            var userExists = _userRepository.Get(us.Id);
+            var userExists = _userRepository.Get(us.IdUser);
 
 
             if (userExists != null)
@@ -147,7 +148,7 @@ namespace OngProject.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            if (_context.Users.FirstOrDefault(x => x.Id == id) == null) return BadRequest(error: "El user enviado no existe.");
+            if (_context.Users.FirstOrDefault(x => x.IdUser == id) == null) return BadRequest(error: "El user enviado no existe.");
 
             var internalUser = _context.Users.Find(id);
             _context.Users.Remove(internalUser);
