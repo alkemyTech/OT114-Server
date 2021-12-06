@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\" />
+    <Folder Include="Services\Interfaces\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
 
