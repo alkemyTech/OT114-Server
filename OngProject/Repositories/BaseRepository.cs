@@ -53,7 +53,8 @@ namespace OngProject.Repositories
             _dbContext.Remove(entity);
             return entity;
 
+        }
+		
+		#endregion
     }
-
-}
 }
