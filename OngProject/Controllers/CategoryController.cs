@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OngProject.Interfaces;
-using OngProject.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using OngProject.Services.Interfaces;
 
 namespace OngProject.Controllers
 {
@@ -16,17 +13,20 @@ namespace OngProject.Controllers
         {
             _categoryService = categoryService;
         }
-                
+
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> GetAll()
+        [Route("/ObtenerCategorias")]
+        public IActionResult Get()
         {
-            var categories = await _categoryService.GetAll();
-            if (categories.Count == 0)
+            var cate = _categoryService.GetAllEntities();
+            if (cate == null)
             {
-                return NotFound();
+                return NotFound("La categoria no existe :(");
+                
             }
 
-            return Ok(categories);
+            return Ok(cate);
         }
+
     }
 }

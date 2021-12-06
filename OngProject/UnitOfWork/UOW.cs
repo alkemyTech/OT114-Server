@@ -6,20 +6,17 @@ namespace OngProject.UnitOfWork
     public class UOW
     {
         private readonly ONGDBContext _context;
-
-        #region Repositories Declaration
-
         private CategoryRepository _categoryRepository;
-        
-        #endregion
+        private RolesRepository _rolesRepository;
+                
 
-        public UOW(ONGDBContext context)
+        public UOW(ONGDBContext context, CategoryRepository categoryRepository, RolesRepository rolesRepository)
         {
             _context = context;
+            _categoryRepository = categoryRepository;
+            _rolesRepository = rolesRepository;
         }
-
-        #region Repositories Implementation
-
+        
         public CategoryRepository CategoryRepository
         {
             get
@@ -31,10 +28,19 @@ namespace OngProject.UnitOfWork
                 return _categoryRepository;
             }
         }
-
-        #endregion        
+        public RolesRepository RolesRepository
+        {
+            get
+            {
+                if (_rolesRepository == null)
+                {
+                    _rolesRepository = new RolesRepository(_context);
+                }
+                return _rolesRepository;
+            }
+        }
 
     }
 }
-           
-    
+
+

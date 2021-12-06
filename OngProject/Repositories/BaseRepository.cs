@@ -1,29 +1,57 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OngProject.Data;
+using OngProject.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace OngProject.Repositories
 {
-    public class BaseRepository<T> where T : class
+    public abstract class BaseRepository<TEntity, TContext> : IService<TEntity>
+            where TEntity : class
+            where TContext : DbContext
     {
-        protected readonly ONGDBContext _context;
-        protected readonly DbSet<T> _model;
+        private readonly TContext _dbContext;
 
-        public BaseRepository(ONGDBContext context)
+
+        protected BaseRepository(TContext dbContext)
         {
-            _context = context;
-            _model = context.Set<T>();
+            _dbContext = dbContext;
+
         }
 
-        #region Public Methods
-
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public List<TEntity> GetAllEntities()
         {
-            return await _model.ToListAsync();
+            return _dbContext.Set<TEntity>().ToList();
         }
-		
-		#endregion
+
+        public TEntity Get(int id)
+        {
+            return _dbContext.Set<TEntity>().Find(id);
+        }
+
+        public TEntity Add(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Add(entity);
+            _dbContext.SaveChanges();
+            return entity;
+        }
+
+        public TEntity Update(TEntity entity)
+        {
+            _dbContext.Attach(entity); //traquea una entidad - toman la entidad
+            _dbContext.Entry(entity).State = EntityState.Modified; //traquea los cambios
+            _dbContext.SaveChanges();
+            return entity;
+        }
+
+        public TEntity Delete(int id)
+        {
+            TEntity entity = _dbContext.Find<TEntity>(id);
+            _dbContext.Remove(entity);
+            //_dbContext.SaveChanges(); En esta parte se implementaria el softdelete
+            return entity;
+
+        }
+
     }
 }
+

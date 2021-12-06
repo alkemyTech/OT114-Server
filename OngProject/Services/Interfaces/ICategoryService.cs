@@ -1,11 +1,14 @@
 ﻿using OngProject.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace OngProject.Interfaces
+namespace OngProject.Services.Interfaces
 {
-    public interface ICategoryService
+    public interface ICategoryService : IService<Category>
     {
-        Task<List<Category>> GetAll();        
+        Category AddCategory(Category category);
+        List<Category> GetAllCategory();
+        Category GetCategory(Category category);
+        Category UpdateCategory(Category category);
+
     }
 }

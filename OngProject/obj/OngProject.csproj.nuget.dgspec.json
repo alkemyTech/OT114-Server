@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj": {}
+    "C:\\Users\\Santos\\Desktop\\mentor base\\OT114-Server\\OngProject\\OngProject.csproj": {}
   },
   "projects": {
-    "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj": {
+    "C:\\Users\\Santos\\Desktop\\mentor base\\OT114-Server\\OngProject\\OngProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj",
+        "projectUniqueName": "C:\\Users\\Santos\\Desktop\\mentor base\\OT114-Server\\OngProject\\OngProject.csproj",
         "projectName": "OngProject",
-        "projectPath": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\OngProject.csproj",
-        "packagesPath": "C:\\Users\\fernandez.martin\\.nuget\\packages\\",
-        "outputPath": "D:\\Alkemy\\Alkemy-ONGTeam114\\OT114-Server\\OngProject\\obj\\",
+        "projectPath": "C:\\Users\\Santos\\Desktop\\mentor base\\OT114-Server\\OngProject\\OngProject.csproj",
+        "packagesPath": "C:\\Users\\Santos\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Santos\\Desktop\\mentor base\\OT114-Server\\OngProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\fernandez.martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Santos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2/": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -72,6 +73,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.12, 5.0.12]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -80,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
