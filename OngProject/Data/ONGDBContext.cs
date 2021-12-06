@@ -22,5 +22,6 @@ namespace OngProject.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Roles> Roles { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }
