@@ -24,7 +24,7 @@ namespace OngProject.Repositories
         }
 
         public List<Category> GetAllCategory()
-        {
+    {
             return GetAllEntities();
         }
 
@@ -32,11 +32,11 @@ namespace OngProject.Repositories
         {
             return Get(category.Id);
         }
-
+            
         public Category UpdateCategory(Category category)
         {
             return Update(category);
         }
-
+       
     }
 }

@@ -7,10 +7,10 @@ namespace OngProject.Data
 {
     public class ONGDBContext : DbContext
     {
-        
+
         public ONGDBContext(DbContextOptions<ONGDBContext> options) : base(options)
         {
-
+           
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
@@ -29,5 +29,6 @@ namespace OngProject.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Testimonials> Testimonials { get; set; }
+        public DbSet<Slide> Slides { get; set; }
     }
 }

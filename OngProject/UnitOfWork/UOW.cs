@@ -11,13 +11,13 @@ namespace OngProject.UnitOfWork
 
         private CategoryRepository _categoryRepository;
         private UserRepository _userRepository;
-
+        
         private MemberRepository _memberRepository;
         
         #endregion
         public UOW()
         {
-            
+
         }
 
         public UOW(ONGDBContext context)

@@ -9,7 +9,7 @@ namespace OngProject.Repositories
 {
     public abstract class BaseRepository<TEntity, TContext> : IService<TEntity>
       where TEntity : class
-      where TContext : DbContext
+         where TContext : DbContext
 
     {
         private readonly TContext _dbContext;
@@ -29,6 +29,7 @@ namespace OngProject.Repositories
         public TEntity Get(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
+
         }
 
         public TEntity Add(TEntity entity)
@@ -52,7 +53,7 @@ namespace OngProject.Repositories
             _dbContext.Remove(entity);
             return entity;
 
-        }
-
     }
+
+}
 }

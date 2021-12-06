@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Interfaces;
 using OngProject.Models;
+using OngProject.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OngProject.ViewModels;
@@ -18,7 +19,7 @@ namespace OngProject.Controllers
         {
             _categoryService = categoryService;
         }
-
+                
         [HttpGet]
         [Route(template: "categorias")]
         public IActionResult Get()
@@ -29,9 +30,9 @@ namespace OngProject.Controllers
             var categoryVM = new List<categoryVM>();
 
             foreach (var u in category)
-            {
+        {
                 categoryVM.Add(new categoryVM
-                {
+            {
                     Id = u.Id,
                     Description=u.Description,
                     Name=u.Name
