@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OngProject.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace OngProject.Data
 {
@@ -16,6 +18,8 @@ namespace OngProject.Data
             modelBuilder.Entity<User>(entity => {
                 entity.HasIndex(e => e.Email).IsUnique();
             });
+            modelBuilder.HasSequence<int>("IdUser").StartsAt(0).IncrementsBy(1);
+            modelBuilder.Entity<User>().Property(o => o.IdUser).HasDefaultValueSql("NEXT VALUE FOR IdUser");
 
             base.OnModelCreating(modelBuilder);
         }
