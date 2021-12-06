@@ -12,6 +12,8 @@ namespace OngProject.UnitOfWork
         private CategoryRepository _categoryRepository;
         private UserRepository _userRepository;
 
+        private MemberRepository _memberRepository;
+        
         #endregion
         public UOW()
         {
@@ -50,6 +52,17 @@ namespace OngProject.UnitOfWork
                 return _userRepository;
 
 
+            }
+        }
+        public MemberRepository MemberRepository
+        {
+            get
+            {
+                if (_memberRepository == null)
+                {
+                    _memberRepository = new MemberRepository(_context);
+                }
+                return _memberRepository;
             }
         }
 

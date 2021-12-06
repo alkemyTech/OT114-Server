@@ -60,6 +60,7 @@ namespace OngProject
 
             services.AddScoped<ICategoryService, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IMemberService, MemberService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
