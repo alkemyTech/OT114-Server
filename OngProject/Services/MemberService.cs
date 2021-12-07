@@ -17,17 +17,17 @@ namespace OngProject.Services
         }
         public async Task<List<Member>> GetAll()
         {
-            var member = await _unitOfWork.MemberRepository.GetAll();
+            var member = _unitOfWork.MemberRepository.GetAll();
             return member.ToList();
         }
         public async Task<Member> GetById(int id)
         {
-            var member = await _unitOfWork.MemberRepository.GetById(id);
+            var member = _unitOfWork.MemberRepository.GetById(id);
             return member;
         }
         public async Task<Member> Insert(Member mem)
         {
-            var member = await _unitOfWork.MemberRepository.Insert(mem);
+            var member = _unitOfWork.MemberRepository.Add(mem);
             return member;
         }
         public void Delete(int id)
@@ -36,9 +36,8 @@ namespace OngProject.Services
         }
         public async Task<Member> Update(Member mem)
         {
-            var member = await _unitOfWork.MemberRepository.Update(mem);
+            var member = _unitOfWork.MemberRepository.Update(mem);
             return member;
         }
-
     }
 }

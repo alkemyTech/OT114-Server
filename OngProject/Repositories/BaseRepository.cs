@@ -7,7 +7,7 @@ using OngProject.Services.Interfaces;
 
 namespace OngProject.Repositories
 {
-    public abstract class BaseRepository<TEntity, TContext> : IService<TEntity>
+    public abstract class BaseRepository<TEntity, TContext>
       where TEntity : class
          where TContext : DbContext
 
@@ -21,12 +21,12 @@ namespace OngProject.Repositories
 
         }
 
-        public List<TEntity> GetAllEntities()
+        public List<TEntity> GetAll()
         {
             return _dbContext.Set<TEntity>().ToList();
         }
 
-        public TEntity Get(int id)
+        public TEntity GetById(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
 
@@ -53,8 +53,6 @@ namespace OngProject.Repositories
             _dbContext.Remove(entity);
             return entity;
 
-        }
-		
-		#endregion
+        }		
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Repositories
 {
-    public class MemberRepository : BaseRepository<Member>
+    public class MemberRepository : BaseRepository<Member, ONGDBContext>
     {
         public MemberRepository(ONGDBContext context) : base(context)
         {

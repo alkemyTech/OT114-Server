@@ -11,40 +11,36 @@ using OngProject.UnitOfWork;
 
 namespace OngProject.Services
 {
-    public class UserService : BaseRepository<User, ONGDBContext>, IUserService
+    public class UserService : IUserService
     {
         private readonly UOW _unitOfWork;
-
-
-
-        public UserService(ONGDBContext dbContext) : base(dbContext)
-        {
-
-        }
-
-        public UserService(UOW unitOfWork, ONGDBContext dbContext) : base(dbContext)
+        public UserService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public User AddUser(User user)
+        public async Task<List<User>> GetAll()
         {
-            return Add(user);
+            var user = _unitOfWork.UserRepository.GetAll();
+            return user.ToList();
         }
-
-        public List<User> GetAllUsers()
+        public async Task<User> GetById(int id)
         {
-            return GetAllEntities();
+            var user = _unitOfWork.UserRepository.GetById(id);
+            return user;
         }
-
-        public User GetUser(User user)
+        public async Task<User> Insert(User mem)
         {
-            return Get(user.IdUser);
+            var user = _unitOfWork.UserRepository.Add(mem);
+            return user;
         }
-
-        public User UpdateUser(User user)
+        public void Delete(int id)
         {
-            return Update(user);
+            _unitOfWork.UserRepository.Delete(id);
+        }
+        public async Task<User> Update(User mem)
+        {
+            var user = _unitOfWork.UserRepository.Update(mem);
+            return user;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OngProject.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace OngProject.Data

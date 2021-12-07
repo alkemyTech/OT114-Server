@@ -10,10 +10,10 @@ namespace OngProject.UnitOfWork
         #region Repositories Declaration
 
         private CategoryRepository _categoryRepository;
-        private UserRepository _userRepository;
-        
+        private UserRepository _userRepository;        
         private MemberRepository _memberRepository;
-        
+        private SlideRepository _slideRepository;
+
         #endregion
         public UOW()
         {
@@ -41,7 +41,7 @@ namespace OngProject.UnitOfWork
             }
         }
 
-        public UserRepository userRepository
+        public UserRepository UserRepository
         {
             get
             {
@@ -63,6 +63,18 @@ namespace OngProject.UnitOfWork
                     _memberRepository = new MemberRepository(_context);
                 }
                 return _memberRepository;
+            }
+        }
+
+        public SlideRepository SlideRepository
+        {
+            get
+            {
+                if (_slideRepository == null)
+                {
+                    _slideRepository = new SlideRepository(_context);
+                }
+                return _slideRepository;
             }
         }
 

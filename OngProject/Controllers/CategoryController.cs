@@ -14,33 +14,56 @@ namespace OngProject.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
-                
+
         [HttpGet]
-        [Route(template: "categorias")]
-        public IActionResult Get()
+        public async Task<ActionResult<List<Category>>> GetAll()
         {
-
-            var category = _categoryService.GetAllCategory();
-            // var user = _context.Users.ToList();
-            var categoryVM = new List<categoryVM>();
-
-            foreach (var u in category)
-        {
-                categoryVM.Add(new categoryVM
+            var members = await _categoryService.GetAll();
+            if (members.Count == 0)
             {
-                    Id = u.Id,
-                    Description=u.Description,
-                    Name=u.Name
-                });
+                return NotFound();
             }
 
-            return Ok(categoryVM);
+            return Ok(members);
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> Post(Category mem)
+        {
+            var member = await _categoryService.Insert(mem);
+
+            return Ok(member);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Category mem)
+        {
+            var m = _categoryService.GetById(mem.Id);
+
+            if (m == null)
+                return NotFound($"La categoría con id {mem.Id} no existe.");
+
+            var member = await _categoryService.Update(mem);
+
+            return Ok(member);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var member = _categoryService.GetById(id);
+
+            if (member == null)
+                return NotFound($"La categoría con id {id} no existe.");
+
+            _categoryService.Delete(id);
+
+            return Ok("La categoría se borró correctamente.");
         }
     }
 }

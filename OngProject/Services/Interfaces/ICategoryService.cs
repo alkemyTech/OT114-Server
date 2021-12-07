@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace OngProject.Interfaces
 {
-    public interface ICategoryService: IService<Category>
+    public interface ICategoryService
     {
-        Category AddCategory(Category category);
-        List<Category> GetAllCategory();
-        Category GetCategory(Category category);
-        Category UpdateCategory(Category category);
+        Task<List<Category>> GetAll();
+        Task<Category> GetById(int id);
+        Task<Category> Insert(Category category);
+        Task Delete(int id);
+        Task<Category> Update(Category category);
 
     }
 }

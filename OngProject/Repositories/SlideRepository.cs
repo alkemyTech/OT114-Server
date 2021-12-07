@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Repositories
 {
-    public class SlideRepository : BaseRepository<Slide, ONGDBContext>, ISlideRepository
+    public class SlideRepository : BaseRepository<Slide, ONGDBContext>
     {
         public SlideRepository(ONGDBContext context)
             : base(context)
