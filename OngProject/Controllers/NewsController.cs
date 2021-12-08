@@ -31,6 +31,13 @@ namespace OngProject.Controllers
             return Ok(news);
         }
 
-   
+        [HttpPost]
+        public async Task<ActionResult> Post(NewsController n)
+        {
+            var news = await _newsService.Insert(n);
+
+            return Ok(news);
+        }
+
     }
 }
