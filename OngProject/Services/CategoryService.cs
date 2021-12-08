@@ -3,33 +3,45 @@ using OngProject.Models;
 using OngProject.Repositories;
 using OngProject.Data;
 using System.Collections.Generic;
+using OngProject.UnitOfWork;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace OngProject.Services
 {
     public class CategoryService : ICategoryService
     {
-        public CategoryService(ONGDBContext dbContext) : base(dbContext)
+        private readonly UOW _unitOfWork;
+        public CategoryService(UOW unitOfWork)
         {
-        }
-        
-        public Category AddCategory(Category category)
-        {
-            return Add(category);
+            _unitOfWork = unitOfWork;
         }
 
-        public List<Category> GetAllCategory()
+        public async Task<List<Category>> GetAll()
         {
-            return GetAllEntities();
+            var cate = _unitOfWork.CategoryRepository.GetAll();
+            return cate.ToList();
+        }
+        public async Task<Category> GetById(int id)
+        {
+            var cate = _unitOfWork.CategoryRepository.GetById(id);
+            return cate;
+        }
+        public async Task<Category> Insert(Category cat)
+        {
+            var cate = _unitOfWork.CategoryRepository.Add(cat);
+            return cate;
         }
 
-        public Category GetCategory(Category category)
+        public void Delete(int id)
         {
-            return Get(category.Id);
+            _unitOfWork.CategoryRepository.Delete(id);
         }
 
-        public Category UpdateCategory(Category category)
+        public async Task<Category> Update(Category cat)
         {
-            return Update(category);
+            var cate = _unitOfWork.CategoryRepository.Update(cat);
+            return cate;
         }
     }
 }

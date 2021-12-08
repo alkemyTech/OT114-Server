@@ -11,8 +11,7 @@ namespace OngProject.Interfaces
         Task<List<Category>> GetAll();
         Task<Category> GetById(int id);
         Task<Category> Insert(Category category);
-        Task Delete(int id);
+        void Delete(int id);
         Task<Category> Update(Category category);
-
     }
 }
