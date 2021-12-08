@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SendGrid.Extensions.DependencyInjection;
 
 namespace OngProject
 {
@@ -67,6 +68,12 @@ namespace OngProject
             services.AddScoped<ICategoryService, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
+            services.AddSingleton<IMailService, MailService>();
+            //TODO : Ingresar APIKEY SENDGRID //
+            services.AddSendGrid(options => 
+            
+            options.ApiKey="Ingrese aqui la ApiKey de SendGrind"
+            );
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
