@@ -29,8 +29,6 @@ timestamps y softDeletes*/
 
         public DateTime Timestamps { get; set; } = DateTime.Now;
         public bool IsActive { get; set; } //para el soft-delete: IsActive= false (inactivo/baja lógica) IsActive=true (Activo)
-        public int roleID { get; set; } //aquí tiene que ir la clase Role con lo de mi otro compañero
-
-        //public Roles role { get; set; } //Verificar aquí
+        public Roles roleID { get; set; } //Verificar aquí
     }
 }
