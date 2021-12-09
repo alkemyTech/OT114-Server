@@ -32,7 +32,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(NewsController n)
+        public async Task<ActionResult> Post(News n)
         {
             var news = await _newsService.Insert(n);
 

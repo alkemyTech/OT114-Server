@@ -47,7 +47,7 @@ namespace OngProject.Repositories
             return entity;
         }
 
-        public TEntity Delete(int id)
+        public virtual TEntity Delete(int id)
         {
             TEntity entity = _dbContext.Find<TEntity>(id);
             _dbContext.Remove(entity);
