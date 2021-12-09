@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using OngProject.Services;
 
 namespace OngProject.Controllers
 {
@@ -23,12 +24,16 @@ namespace OngProject.Controllers
         //Registro
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IMailService _mailService;
 
-        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthenticationController(
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager,
+            IMailService mailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
+            _mailService = mailService;
         }
 
         [HttpPost]
@@ -64,7 +69,8 @@ namespace OngProject.Controllers
 
             }
 
-            //await  _mailService.SendMail(user);
+            await  _mailService.SendEmail(user);
+           
 
             return Ok(new
             {
