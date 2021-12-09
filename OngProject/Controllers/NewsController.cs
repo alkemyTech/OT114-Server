@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OngProject.Models;
+using OngProject.Services;
 using OngProject.Services.Interfaces;
 using OngProject.UnitOfWork;
 using System;
@@ -22,14 +24,14 @@ namespace OngProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var news = _newsService.GetAll();
-            return Ok();
+            var news = _newsService.GetAllNews();
+            return Ok(news);
         }
 
         [HttpGet]
         public async Task<ActionResult<News>> GetById(int id)
         {
-            var news = await _newsService.GetById(id);
+            var news = await _newsService.GetIdNews(id);
 
             if (news == null)
             {
@@ -39,7 +41,40 @@ namespace OngProject.Controllers
             return Ok(news);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post(News news)
+        {
+            var CreateNews = await _newsService.InsertNews(news);
+            return Ok(CreateNews);
+        }
 
+        [HttpPut]
+        public async Task<IActionResult> Put(News news)
+        {
+            var searchNews = await _newsService.GetIdNews(news.Id);
+            if(searchNews == null)
+            {
+                return NoContent();
+            }
+            await _newsService.UpdateNews(searchNews);
+            if(searchNews == null)
+            {
+                return BadRequest();
+            }
+            return Ok(searchNews);
+        }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var news =  _newsService.GetIdNews(id);
+            if (news==null) 
+            {
+                return NoContent();
+            }
+             _newsService.DeleteNews(id);
+            return Ok();
+        }
     }
 }

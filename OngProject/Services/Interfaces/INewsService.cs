@@ -1,16 +1,15 @@
-﻿using System;
+﻿using OngProject.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace OngProject.Services.Interfaces
+namespace OngProject.Services
 {
     public interface INewsService
     {
-        Task<List<News>> GetAll();
-        Task<News> GetById(int id);
-        Task<News> Insert(News news);
-        void Delete(int id);
-        Task<News> Update(News news);
+        void DeleteNews(int id);
+        Task<List<News>> GetAllNews();
+        Task<News> GetIdNews(int id);
+        Task<News> InsertNews(News news);
+        Task<News> UpdateNews(News news);
     }
 }
