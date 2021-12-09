@@ -56,7 +56,7 @@ namespace OngProject.Controllers
         {
             var member = await _memberService.Delete(id);
 
-            if (member.DeletedAt == null)
+            if (member.DeletedAt != null)
                 return NotFound($"El Miembro con id {id} no existe.");
             
             else
