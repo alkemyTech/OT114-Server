@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,15 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(News n)
         {
-            var news = await _newsService.Insert(n);
-
-            return Ok(news);
+            if(ModelState.IsValid)
+            {     
+                var news = await _newsService.Insert(n);
+                return Ok(news);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
     }
