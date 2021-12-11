@@ -26,6 +26,8 @@ namespace OngProject.Services
             };
             msg.AddTo(new EmailAddress(user.Email, "Test User"));
 
+            msg.SetTemplateId("d-b3d911ae087e4e87b5bc25f706b7cf59");
+            
             await _sendGridClient.SendEmailAsync(msg);
         }
     }
