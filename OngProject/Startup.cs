@@ -52,6 +52,7 @@ namespace OngProject
             // Add Services
             services.AddEntityFrameworkSqlServer();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IActivityService, ActivityService>();
             services.AddTransient<IUserService, UserService>();
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
@@ -61,6 +62,7 @@ namespace OngProject
             });
 
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<IMemberService, MemberService>();
 
             services.AddControllers();

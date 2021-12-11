@@ -13,6 +13,7 @@ namespace OngProject.UnitOfWork
         private UserRepository _userRepository;        
         private MemberRepository _memberRepository;
         private SlideRepository _slideRepository;
+        private ActivityRepository _activityRepository;
 
         #endregion
         public UOW()
@@ -75,6 +76,18 @@ namespace OngProject.UnitOfWork
                     _slideRepository = new SlideRepository(_context);
                 }
                 return _slideRepository;
+            }
+        }
+
+        public ActivityRepository ActivityRepository
+        {
+            get
+            {
+                if (_activityRepository == null)
+                {
+                    _activityRepository = new ActivityRepository(_context);
+                }
+                return _activityRepository;
             }
         }
 
