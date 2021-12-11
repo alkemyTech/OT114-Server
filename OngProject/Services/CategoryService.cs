@@ -33,7 +33,7 @@ namespace OngProject.Services
             return cate;
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             _unitOfWork.CategoryRepository.Delete(id);
         }

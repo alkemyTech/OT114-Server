@@ -52,11 +52,7 @@ namespace OngProject
             // Add Services
             services.AddEntityFrameworkSqlServer();
             services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ICategoryService, CategoryRepository>();
-
             services.AddTransient<IUserService, UserService>();
-            //services.AddTransient<IUserService, UserRepository>();
-
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
             {
@@ -64,7 +60,6 @@ namespace OngProject
                 builder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Database=OngDb;Integrated Security=True;");
             });
 
-            //services.AddScoped<ICategoryService, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
 
