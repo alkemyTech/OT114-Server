@@ -1,4 +1,5 @@
-﻿using OngProject.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using OngProject.Data;
 using OngProject.Models;
 using System;
 using System.Collections.Generic;

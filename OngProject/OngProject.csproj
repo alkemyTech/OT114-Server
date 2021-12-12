@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="UnitOfWork\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

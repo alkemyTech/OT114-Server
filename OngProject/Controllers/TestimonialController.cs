@@ -64,7 +64,7 @@ namespace OngProject.Controllers
 
             _testimonialService.Delete(id);
 
-            return Ok("La El testimonio se borró correctamente.");
+            return Ok("El testimonio se borró correctamente.");
         }
     }
 }

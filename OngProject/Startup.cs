@@ -53,6 +53,7 @@ namespace OngProject
             services.AddEntityFrameworkSqlServer();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITestimonialService, TestomialService>();
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
             {
@@ -62,6 +63,7 @@ namespace OngProject
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
+            services.AddScoped<ITestimonialService, TestomialService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

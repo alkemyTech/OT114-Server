@@ -14,7 +14,7 @@ namespace OngProject.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public string Content { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
    
     }
 }
