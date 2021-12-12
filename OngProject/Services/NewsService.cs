@@ -34,23 +34,15 @@ namespace OngProject.Services
             return CreateNews;
         }
 
-        public void DeleteNews(int id)
+        public void Delete(int id)
         {
             _unitOfWork.NewsRepository.Delete(id);
         }
 
-        public async Task<News> UpdateNews(News news)
+        public async Task<News> Update(News news)
         {
             var EditNews = _unitOfWork.NewsRepository.Update(news);
             return EditNews;
         }
-
-
-
-
-
-
-
-
     }
 }

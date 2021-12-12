@@ -8,7 +8,7 @@ namespace OngProject.Services
     {
         void Delete(int id);
         Task<List<News>> GetAll();
-        Task<News> GetId(int id);
+        Task<News> GetById(int id);
         Task<News> Insert(News news);
         Task<News> Update(News news);
     }

@@ -25,7 +25,7 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public async Task<ActionResult<News>> GetById(int id)
         {
-            var news = await _newsService.GetById();
+            var news = await _newsService.GetById(id);
 
             if (news.DeletedAt != null)
             {
@@ -34,7 +34,5 @@ namespace OngProject.Controllers
 
             return Ok(news);
         }
-
-
     }
 }

@@ -21,6 +21,6 @@ namespace OngProject.Models
 
         public Category Category { get; set; }
        
-        //TODO : TimeStamp o SoftDelete //
+        public DateTime? DeletedAt { get; set; }
     }
 }
