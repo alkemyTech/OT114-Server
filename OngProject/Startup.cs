@@ -57,7 +57,7 @@ namespace OngProject
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<INewsService, NewsService>();
-
+            services.AddScoped<IActivityService, ActivityService>();
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
             {
