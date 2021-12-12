@@ -23,9 +23,9 @@ namespace OngProject.Controllers
         {
             var news = await _newsService.GetById();
             
-            if (news == null)
+            if (news.DeletedAt != null)
             {
-                return NotFound($"la news con id {id} no existe.");
+                return NotFound($"la novedad con id {id} no existe.");
             }
 
             return Ok(news);
