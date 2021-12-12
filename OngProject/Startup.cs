@@ -52,7 +52,7 @@ namespace OngProject
 
             // Add Services
             services.AddEntityFrameworkSqlServer();
-            services.AddTransient<ICategoryService, CategoryService>();
+            
             services.AddTransient<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();

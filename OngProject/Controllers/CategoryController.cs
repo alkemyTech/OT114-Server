@@ -4,7 +4,6 @@ using OngProject.Models;
 using OngProject.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OngProject.ViewModels;
 
 namespace OngProject.Controllers
 {
@@ -22,43 +21,43 @@ namespace OngProject.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Category>>> GetAll()
         {
-            var members = await _categoryService.GetAll();
-            if (members.Count == 0)
+            var categories = await _categoryService.GetAll();
+            if (categories.Count == 0)
             {
                 return NotFound();
             }
 
-            return Ok(members);
+            return Ok(categories);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Category mem)
+        public async Task<ActionResult> Post(Category cat)
         {
-            var member = await _categoryService.Insert(mem);
+            var catetoadd = await _categoryService.Insert(cat);
 
-            return Ok(member);
+            return Ok(catetoadd);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(Category mem)
+        public async Task<ActionResult> Put(Category categ)
         {
-            var m = _categoryService.GetById(mem.Id);
+            var category = _categoryService.GetById(categ.Id);
 
-            if (m == null)
-                return NotFound($"La categoría con id {mem.Id} no existe.");
+            if (category == null)
+                return NotFound($"La categoría con id {categ.Id} no existe.");
 
-            var member = await _categoryService.Update(mem);
+            var cat = await _categoryService.Update(categ);
 
-            return Ok(member);
+            return Ok(cat);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            var member = _categoryService.GetById(id);
+            var category = _categoryService.GetById(id);
 
-            if (member == null)
+            if (category == null)
                 return NotFound($"La categoría con id {id} no existe.");
 
             _categoryService.Delete(id);
