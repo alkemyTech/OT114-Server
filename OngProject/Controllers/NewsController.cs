@@ -18,20 +18,6 @@ namespace OngProject.Controllers
             _newsService = newsService;
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult<News>> GetById(int id)
-        {
-            var news = await _newsService.GetById();
-            
-            if (news == null)
-            {
-                return NotFound($"la news con id {id} no existe.");
-            }
-
-            return Ok(news);
-        }
-
         [HttpPost]
         public async Task<ActionResult> Post(News n)
         {
