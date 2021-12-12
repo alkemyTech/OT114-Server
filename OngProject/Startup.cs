@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Amazon.S3;
 
 namespace OngProject
 {
@@ -44,18 +45,15 @@ namespace OngProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add DbContext
-
-
             //services.AddDbContext<ONGDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ONGDBConnection")));
 
-            // Add Services
             services.AddEntityFrameworkSqlServer();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ICategoryService, CategoryRepository>();
-
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserService, UserRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IMemberService, MemberService>();
+
+            services.AddAWSService<IAmazonS3>;
+            services.AddTransient<AwsS3Service>;
 
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
@@ -63,10 +61,6 @@ namespace OngProject
                 builder.UseInternalServiceProvider(provider);
                 builder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Database=OngDb;Integrated Security=True;");
             });
-
-            services.AddScoped<ICategoryService, CategoryRepository>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IMemberService, MemberService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
