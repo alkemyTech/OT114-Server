@@ -22,8 +22,10 @@ namespace OngProject.Controllers
             _newsService = newsService;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post(News n)
+        [HttpGet]
+        [Route("{id}")]
+
+        public async Task<ActionResult<News>> GetById(int id)
         {
             var news = await _newsService.GetById(id);
 
@@ -31,18 +33,21 @@ namespace OngProject.Controllers
             {
                 return NotFound($"la novedad con id {id} no existe.");
             }
-            [HttpPost]
-            public async Task<ActionResult> Post(News n)
+
+            return news;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(News n)
+        {
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var news = await _newsService.Insert(n);
-                    return Ok(news);
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest);
-                }
+                var news = await _newsService.Insert(n);
+                return Ok(news);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
             }
         }
     }
