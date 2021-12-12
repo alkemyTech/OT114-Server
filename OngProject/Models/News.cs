@@ -9,10 +9,10 @@ namespace OngProject.Models
     public class News
     {
         public int Id { get; set; }
-
+        
         [Required]
         public string Name { get; set; }
-
+        
         [Required]
         public string Text { get; set; }
 
@@ -20,6 +20,7 @@ namespace OngProject.Models
         public byte[] Image { get; set; }
 
         public Category Category { get; set; }
-
+       
+        //TODO : TimeStamp o SoftDelete //
     }
 }
