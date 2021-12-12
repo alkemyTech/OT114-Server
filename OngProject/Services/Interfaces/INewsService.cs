@@ -6,10 +6,10 @@ namespace OngProject.Services
 {
     public interface INewsService
     {
-        void DeleteNews(int id);
-        Task<List<News>> GetAllNews();
-        Task<News> GetIdNews(int id);
-        Task<News> InsertNews(News news);
-        Task<News> UpdateNews(News news);
+        void Delete(int id);
+        Task<List<News>> GetAll();
+        Task<News> GetId(int id);
+        Task<News> Insert(News news);
+        Task<News> Update(News news);
     }
 }

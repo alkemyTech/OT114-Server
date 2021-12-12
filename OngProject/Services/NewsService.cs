@@ -16,19 +16,19 @@ namespace OngProject.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<List<News>> GetAllNews()
+        public async Task<List<News>> GetAll()
         {
             var newsList = _unitOfWork.NewsRepository.GetAll();
             return newsList.ToList();
         }
 
-        public async Task<News> GetIdNews(int id)
+        public async Task<News> GetById(int id)
         {
             var news = _unitOfWork.NewsRepository.GetById(id);
             return news;
         }
 
-        public async Task<News> InsertNews(News news)
+        public async Task<News> Insert(News news)
         {
             var CreateNews = _unitOfWork.NewsRepository.Add(news);
             return CreateNews;
