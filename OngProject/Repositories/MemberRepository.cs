@@ -1,4 +1,5 @@
-﻿using OngProject.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using OngProject.Data;
 using OngProject.Models;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,20 @@ namespace OngProject.Repositories
 {
     public class MemberRepository : BaseRepository<Member, ONGDBContext>
     {
+        private readonly ONGDBContext _context;
         public MemberRepository(ONGDBContext context) : base(context)
         {
+            _context = context;
+        }
+        public override Member Delete(int id)
+        {
+            Member member = _context.Find<Member>(id);
+            if(member.DeletedAt == null)
+                member.DeletedAt = DateTime.Now;    
+            _context.Attach(member);
+            _context.Entry(member).State = EntityState.Modified;
+            _context.SaveChanges();
+            return member;
         }
     }
 }

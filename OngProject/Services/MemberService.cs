@@ -30,9 +30,10 @@ namespace OngProject.Services
             var member = _unitOfWork.MemberRepository.Add(mem);
             return member;
         }
-        public void Delete(int id)
+        public async Task<Member> Delete(int id)
         {
-            _unitOfWork.MemberRepository.Delete(id);
+            var member = _unitOfWork.MemberRepository.Delete(id);
+            return member;
         }
         public async Task<Member> Update(Member mem)
         {
