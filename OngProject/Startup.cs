@@ -53,10 +53,10 @@ namespace OngProject
             // Add Services
             services.AddEntityFrameworkSqlServer();
             services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ICategoryService, CategoryRepository>();
-
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserService, UserRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IMemberService, MemberService>();
+            services.AddScoped<INewsService, NewsService>();
 
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
@@ -64,16 +64,6 @@ namespace OngProject
                 builder.UseInternalServiceProvider(provider);
                 builder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Database=OngDb;Integrated Security=True;");
             });
-
-            services.AddScoped<ICategoryService, CategoryRepository>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IMemberService, MemberService>();
-            services.AddSingleton<IMailService, MailService>();
-            //TODO : Ingresar APIKEY SENDGRID //
-            services.AddSendGrid(options => 
-            
-            options.ApiKey="Ingrese aqui la ApiKey de SendGrind"
-            );
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
