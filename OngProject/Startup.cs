@@ -52,8 +52,8 @@ namespace OngProject
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
 
-            services.AddAWSService<IAmazonS3>;
-            services.AddTransient<AwsS3Service>;
+            services.AddAWSService<IAmazonS3>();
+            services.AddTransient<AwsS3Service>();
 
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
@@ -74,7 +74,7 @@ namespace OngProject
                             Scheme = "Bearer",
                             BearerFormat = "JWT",
                             In = ParameterLocation.Header,
-                            Description = "Ingrese Bearer [Token] para poder identificarse dentro de la aplicaci髇"
+                            Description = "Ingrese Bearer [Token] para poder identificarse dentro de la aplicaci贸n"
 
 
                         });
@@ -99,9 +99,9 @@ namespace OngProject
 
             //Inyecta las dependencias necesarias de identity
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
-            //Toma un usuario, los roles y coloca la configuraci髇 por default.
+            //Toma un usuario, los roles y coloca la configuraci贸n por default.
 
-            //A馻de un tipo de autentificaci髇:
+            //A帽ade un tipo de autentificaci贸n:
             /*Agrega autentificacion JWT ("Con "Bearers"")*/
             services.AddAuthentication(options =>
             {
@@ -118,7 +118,7 @@ namespace OngProject
                         ValidateAudience = true, //los que usan o ven el token
                         ValidAudience = "https://localhost:5001",
                         ValidIssuer = "https://localhost:5001",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeySecretaSuperLargaDeAutorizacion")) //Encargado de proveernos info con la llave secreta para ingresar a la aplicaci髇
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeySecretaSuperLargaDeAutorizacion")) //Encargado de proveernos info con la llave secreta para ingresar a la aplicaci贸n
                                                                                                                                   // TOKEN = HEADER + PILOT + FIRMA
                     };
                 });
