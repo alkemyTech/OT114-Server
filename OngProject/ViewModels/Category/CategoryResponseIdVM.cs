@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.ViewModels.Category
 {
-    public class CategoryResponseVM
+    public class CategoryResponseIdVM
     {
         [Required]
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace OngProject.ViewModels.Category
         public string Image { get; set; }
 
         [Required]
-        public DateTime? deletedAt { get; set; };
+        public DateTime? deletedAt { get; set; }
     }
 }

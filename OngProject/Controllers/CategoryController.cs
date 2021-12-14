@@ -82,11 +82,15 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Category cat)
+        public async Task<ActionResult> Post(CategoryRequestVM model)
         {
-            var catetoadd = await _categoryService.Insert(cat);
+            Category NewCategory = new Category
+            {
+                Name = model.Name
+            };
+            var Newcat = await _categoryService.Insert(NewCategory);
 
-            return Ok(catetoadd);
+            return Ok(Newcat);
         }
 
         [HttpPut]
