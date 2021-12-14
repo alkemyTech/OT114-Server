@@ -2,6 +2,7 @@
 using OngProject.Interfaces;
 using OngProject.Models;
 using OngProject.Repositories;
+using OngProject.ViewModels.Category;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,15 +20,65 @@ namespace OngProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> GetAll()
+        public async Task<ActionResult<List<CategoryResponseListVM>>> GetAll()
         {
-            var categories = await _categoryService.GetAll();
-            if (categories.Count == 0)
+            try
             {
-                return NotFound();
+                var categories = await _categoryService.GetAll();
+                var categoriesVM = new List<CategoryResponseListVM>();
+
+                if (categories.Count == 0)
+                {
+                    return StatusCode(404);
+                }
+
+                foreach (var item in categories)
+                {
+                    CategoryResponseListVM tempCategory = new()
+                    {
+                        Name = item.Name
+                    };
+                    categoriesVM.Add(tempCategory);
+                }
+                return Ok(categoriesVM);
+            }
+            catch (System.Exception ex)
+            {
+                string error = ex.Message;
+                return NoContent();
             }
 
-            return Ok(categories);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<CategoryResponseIdVM>> GetById(int id)
+        {
+            try
+            {
+                var category = await _categoryService.GetById(id);
+                var categoryVM = new CategoryResponseIdVM()
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Description = category.Description,
+                    Image = category.Image,
+                    deletedAt = category.deletedAt
+                };
+
+                if (categoryVM.Id == id)
+                {
+                    return categoryVM;
+                }
+                else
+                {
+                    return StatusCode(404);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                string error = ex.Message;
+                return NoContent();
+            }
         }
 
         [HttpPost]
