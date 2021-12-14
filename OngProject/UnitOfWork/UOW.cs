@@ -17,6 +17,7 @@ namespace OngProject.UnitOfWork
         private NewsRepository _newsRepository;
         private ActivityRepository _activityRepository;
         private TestimonialRepository _testimonialRepository;
+        private CommentsRepository _commentsRepository;
 
         #endregion
         public UOW()
@@ -126,6 +127,18 @@ namespace OngProject.UnitOfWork
                     _testimonialRepository = new TestimonialRepository(_context);
                 }
                 return _testimonialRepository;
+            }
+        }
+
+        public CommentsRepository CommentsRepository
+        {
+            get
+            {
+                if (_commentsRepository == null)
+                {
+                    _commentsRepository = new CommentsRepository(_context);
+                }
+                return _commentsRepository;
             }
         }
 

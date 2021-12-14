@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Models
 {
-    public class Comentario
+    public class Comments
     {
         public int Id { get; set; }
 
@@ -15,6 +15,8 @@ namespace OngProject.Models
         public User UserId { get; set; }
 
         // TODO : Relacionar modelo ///
-        //public News NewsId { get; set; }
+        public News NewsId { get; set; }
+
+        public DateTime CreatedDate { get; set; } = DateTime.Now; //no lo pedia pero en el ticket decia de ordenar por fecha, preguntar
     }
 }

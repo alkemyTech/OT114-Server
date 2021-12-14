@@ -56,6 +56,7 @@ namespace OngProject
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<ITestimonialService, TestomialService>();
+            services.AddScoped<ICommentsService, CommentsService>();
             services.AddAWSService<IAmazonS3>();
             services.AddTransient<AwsS3Service>();
 
