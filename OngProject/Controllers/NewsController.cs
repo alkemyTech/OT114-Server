@@ -50,5 +50,27 @@ namespace OngProject.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
             }
         }
+        [HttpDelete]
+        [Route("{id}")]
+        public  async Task<IActionResult> Delete(int id)
+        {
+            await  _newsService.GetById(id);
+            
+            if(id == 0)
+            {
+                return NotFound();
+            }
+            try
+            {
+                _newsService.Delete(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return Ok();
+        }
     }
 }
