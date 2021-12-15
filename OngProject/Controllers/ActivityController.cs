@@ -35,9 +35,34 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Activity activity)
         {
-            var postactivity = await _activityService.Insert(activity);
+            var Postactivity = new Activity();
 
-            return Ok(postactivity);
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Postactivity = await _activityService.Insert(activity);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            if (string.IsNullOrEmpty(Postactivity.Content))
+            {
+                return NoContent();
+            }
+
+            if (string.IsNullOrEmpty(Postactivity.Name))
+            {
+                return NoContent();
+            }
+
+            return Ok(Postactivity);
         }
 
         [HttpPut]
