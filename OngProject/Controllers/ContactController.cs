@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
@@ -33,6 +34,20 @@ namespace OngProject.Controllers
             return Ok(contacts);
         }
 
-      
+        [HttpPost]
+        public async Task<ActionResult> Post(Contact con)
+        {
+            if ((con.Name == null) || (con.Email == null))
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
+            else
+            {
+                var contact = await _contactService.Insert(con);
+
+                return Ok(contact);
+            }
+        }
+
     }
 }
