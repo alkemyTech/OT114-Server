@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="UnitOfWork\" />
-    <Folder Include="ViewModels\Organization\" />
   </ItemGroup>
 
 </Project>

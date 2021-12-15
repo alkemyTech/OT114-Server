@@ -31,6 +31,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SendGrid.Extensions.DependencyInjection;
 using Amazon.S3;
+using OngProject.Middlewares;
 
 namespace OngProject
 {

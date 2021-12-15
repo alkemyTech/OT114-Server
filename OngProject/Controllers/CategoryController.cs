@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OngProject.Interfaces;
 using OngProject.Models;
 using OngProject.Repositories;
-using OngProject.ViewModels.Category;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,54 +20,49 @@ namespace OngProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CategoryResponseListVM>>> GetAll()
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<List<Category>>> GetAll()
         {
             try
             {
                 var categories = await _categoryService.GetAll();
-                var categoriesVM = new List<CategoryResponseListVM>();
+                var ListaNombres = new List<Category>();
 
                 if (categories.Count == 0)
                 {
-                    return StatusCode(404);
+                    return NoContent();
                 }
 
                 foreach (var item in categories)
                 {
-                    CategoryResponseListVM tempCategory = new()
+                    var tempName = new Category
                     {
                         Name = item.Name
                     };
-                    categoriesVM.Add(tempCategory);
+                    ListaNombres.Add(tempName);
                 }
-                return Ok(categoriesVM);
+
+                return ListaNombres;
+
             }
             catch (System.Exception ex)
             {
                 string error = ex.Message;
                 return NoContent();
             }
-
         }
 
         [HttpGet]
-        public async Task<ActionResult<CategoryResponseIdVM>> GetById(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Category>> GetById(int id)
         {
             try
             {
                 var category = await _categoryService.GetById(id);
-                var categoryVM = new CategoryResponseIdVM()
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    Description = category.Description,
-                    Image = category.Image,
-                    deletedAt = category.deletedAt
-                };
 
-                if (categoryVM.Id == id)
+                if (category.Id == id && category.deletedAt is not null)
                 {
-                    return categoryVM;
+                    return category;
                 }
                 else
                 {
@@ -82,12 +77,14 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(CategoryRequestVM model)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Post(Category category)
         {
             Category NewCategory = new Category
             {
-                Name = model.Name
+                Name = category.Name
             };
+
             var Newcat = await _categoryService.Insert(NewCategory);
 
             return Ok(Newcat);
