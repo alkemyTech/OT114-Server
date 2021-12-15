@@ -24,11 +24,17 @@ namespace OngProject.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        [Route("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
+            var user = await _userService.Delete(id);
 
+            if (user.DeletedAt != null)
+                return NotFound($"El usuario con id {id} no existe.");
+
+            else
+                return Ok("El usuario se borró correctamente.");
         }
+
     }
-
-
 }

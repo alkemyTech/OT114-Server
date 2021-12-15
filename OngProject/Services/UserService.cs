@@ -28,18 +28,19 @@ namespace OngProject.Services
             var user = _unitOfWork.UserRepository.GetById(id);
             return user;
         }
-        public async Task<User> Insert(User mem)
+        public async Task<User> Insert(User u)
         {
-            var user = _unitOfWork.UserRepository.Add(mem);
+            var user = _unitOfWork.UserRepository.Add(u);
             return user;
         }
-        public void Delete(int id)
+        public async Task<User> Delete(int id)
         {
-            _unitOfWork.UserRepository.Delete(id);
+            var user = _unitOfWork.UserRepository.Delete(id);
+            return user;
         }
-        public async Task<User> Update(User mem)
+        public async Task<User> Update(User u)
         {
-            var user = _unitOfWork.UserRepository.Update(mem);
+            var user = _unitOfWork.UserRepository.Update(u);
             return user;
         }
     }

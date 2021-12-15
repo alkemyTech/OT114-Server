@@ -9,26 +9,14 @@ namespace OngProject.Models
 {
     public class User : IdentityUser
     {
-        /*Campos:
-id: INTEGER NOT NULL AUTO_INCREMENT
-firstName: VARCHAR NOT NULL
-lastName: VARCHAR NOT NULL
-email: VARCHAR UNIQUE NOT NULL
-password: VARCHAR NOT NULL
-photo: VARCHAR NULLABLE
-roleId: Clave foranea hacia ID de Role
-timestamps y softDeletes*/
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public  int IdUser { get; set; }
-    
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
        // public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Photo { get; set; }
-
-        public DateTime Timestamps { get; set; } = DateTime.Now;
-        public bool IsActive { get; set; } //para el soft-delete: IsActive= false (inactivo/baja lógica) IsActive=true (Activo)
-        public Roles roleID { get; set; } //Verificar aquí
+        public DateTime? DeletedAt { get; set; }
+        public Roles roleID { get; set; } 
     }
 }
