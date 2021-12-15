@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
+using OngProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,33 +14,40 @@ namespace OngProject.Controllers
     [ApiController]
     public class OrganizationController : ControllerBase
     {
-        //ORGANIZACION INYECCION
+        private readonly IOrganizationService _organizationService;
 
-        //CONTRUCTOR
-
+        public OrganizationController(IOrganizationService organizationService)
+        {
+            _organizationService = organizationService;
+        }
 
         //GET api/<OrganizationController>/5
-        //[HttpGet]
-        //public async Task<ActionResult<Organization>> GetById(int id)
-        //{
-        //    try
-        //    {
-        //        var organization = await _organizationService.GetById(id);
+        [HttpGet]
+//campos name, image, phone y address de la Organización
+        public async Task<ActionResult<Organization>> GetById(int id)
+        {
+            try
+            {
+                if (true)
+                {
 
-        //        if (organization.Id == id)
-        //        {
-        //            return organization;
-        //        }
-        //        else
-        //        {
-        //            return StatusCode(404);
-        //        }
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        string error = ex.Message;
-        //        return NoContent();
-        //    }
-        //}
+                }
+                var organization = await _organizationService.GetById(id);
+
+                if (organization.Id == id)
+                {
+                    return organization;
+                }
+                else
+                {
+                    return StatusCode(404);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                string error = ex.Message;
+                return NoContent();
+            }
+        }
     }
 }

@@ -31,6 +31,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SendGrid.Extensions.DependencyInjection;
 using Amazon.S3;
+using OngProject.Middlewares;
 
 namespace OngProject
 {
@@ -51,6 +52,7 @@ namespace OngProject
             services.AddEntityFrameworkSqlServer();
             
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrganizationService, OrganizationService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<INewsService, NewsService>();

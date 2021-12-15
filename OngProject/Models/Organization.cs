@@ -18,5 +18,7 @@ namespace OngProject.Models
         public string Address { get; set; }
         [Required]
         public int Phone { get; set; }
+
+        public DateTime? deletedAt { get; set; } = DateTime.Now;
     }
 }
