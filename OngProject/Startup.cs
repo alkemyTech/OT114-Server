@@ -17,15 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using OngProject.Data;
 using OngProject.Models;
-using OngProject.Repositories;
-using OngProject.Interfaces;
-using OngProject.Services;
 using OngProject.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -55,7 +49,8 @@ namespace OngProject
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IActivityService, ActivityService>();
-            services.AddScoped<ITestimonialService, TestomialService>();
+            services.AddScoped<ITestimonialService, TestimonialService>();
+            services.AddScoped<IContactService, ContactService>();
             services.AddAWSService<IAmazonS3>();
             services.AddTransient<AwsS3Service>();
 

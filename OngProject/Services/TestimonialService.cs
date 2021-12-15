@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace OngProject.Services
 {
-    public class TestomialService : ITestimonialService
+    public class TestimonialService : ITestimonialService
     {
         private readonly UOW _unitOfWork;
-        public TestomialService(UOW unitOfWork)
+        public TestimonialService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
