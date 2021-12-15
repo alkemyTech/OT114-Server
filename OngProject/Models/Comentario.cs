@@ -9,12 +9,10 @@ namespace OngProject.Models
     {
         public int Id { get; set; }
 
-        /// Consultar al mentor tipo de dato ///
         public string Body { get; set; }
         
         public User UserId { get; set; }
 
-        // TODO : Relacionar modelo ///
-        //public News NewsId { get; set; }
+        public News NewsId { get; set; }
     }
 }
