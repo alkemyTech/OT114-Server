@@ -16,7 +16,7 @@ namespace OngProject.Repositories
         {
             User usuario = _context.Find<User>(id);
 
-            if ((usuario.DeletedAt != null) || (usuario == null))
+            if ((usuario == null) || (usuario.DeletedAt != null))
             {
                 throw new Exception("el usuario no existe");
             }

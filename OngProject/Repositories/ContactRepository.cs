@@ -23,7 +23,7 @@ namespace OngProject.Repositories
         {
             Contact contact = _context.Find<Contact>(id);
 
-            if ((contact.DeletedAt != null) || (contact == null))
+            if ((contact == null) || (contact.DeletedAt != null))
             {
                 throw new Exception("el contacto no existe");
             }
