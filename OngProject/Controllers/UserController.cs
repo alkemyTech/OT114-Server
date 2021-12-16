@@ -27,13 +27,15 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var user = await _userService.Delete(id);
-
-            if (user.DeletedAt != null)
-                return NotFound($"El usuario con id {id} no existe.");
-
-            else
-                return Ok("El usuario se borró correctamente.");
+            try
+            {
+                await _userService.Delete(id);
+                return Ok("usuario borrado correctamente");
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
     }

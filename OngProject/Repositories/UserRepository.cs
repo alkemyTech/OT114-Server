@@ -14,13 +14,20 @@ namespace OngProject.Repositories
         }
         public override User Delete(int id)
         {
-            User user = _context.Find<User>(id);
-            if (user.DeletedAt == null)
-                user.DeletedAt = DateTime.Now;
-            _context.Attach(user);
-            _context.Entry(user).State = EntityState.Modified;
-            _context.SaveChanges();
-            return user;
+            User usuario = _context.Find<User>(id);
+
+            if ((usuario.DeletedAt != null) || (usuario == null))
+            {
+                throw new Exception("el usuario no existe");
+            }
+            else
+            {
+                usuario.DeletedAt = DateTime.Now;
+                _context.Attach(usuario);
+                _context.Entry(usuario).State = EntityState.Modified;
+                _context.SaveChanges();
+                return usuario;
+            }
         }
     }
 }

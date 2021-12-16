@@ -39,7 +39,7 @@ namespace OngProject.Controllers
         {
             if ((con.Name == null) || (con.Email == null))
             {
-                return StatusCode(StatusCodes.Status400BadRequest);
+                return BadRequest();
             }
             else
             {
@@ -49,5 +49,18 @@ namespace OngProject.Controllers
             }
         }
 
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                await _contactService.Delete(id);
+                return Ok("contacto borrado correctamente");
+            }
+            catch(Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }

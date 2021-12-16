@@ -15,18 +15,26 @@ namespace OngProject.Repositories
         {
             _context = context;
         }
+        public override List<Contact> GetAll()
+        {
+            return _context.Contacts.Where(c => c.DeletedAt == null).ToList();
+        }
         public override Contact Delete(int id)
         {
             Contact contact = _context.Find<Contact>(id);
-            if (contact.DeletedAt == null)
+
+            if ((contact.DeletedAt != null) || (contact == null))
+            {
+                throw new Exception("el contacto no existe");
+            }
+            else
+            {
                 contact.DeletedAt = DateTime.Now;
-            _context.Attach(contact);
-            _context.Entry(contact).State = EntityState.Modified;
-            _context.SaveChanges();
-            return contact;
+                _context.Attach(contact);
+                _context.Entry(contact).State = EntityState.Modified;
+                _context.SaveChanges();
+                return contact;
+            }
         }
     }
-
-
-}
 }

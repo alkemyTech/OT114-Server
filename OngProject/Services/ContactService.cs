@@ -18,7 +18,7 @@ namespace OngProject.Services
         public async Task<List<Contact>> GetAll()
         {
             var contact = _unitOfWork.ContactRepository.GetAll();
-            return contact.ToList();
+            return contact;
         }
         public async Task<Contact> GetById(int id)
         {
