@@ -25,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SendGrid.Extensions.DependencyInjection;
 using Amazon.S3;
+using OngProject.Middlewares;
 
 namespace OngProject
 {
@@ -53,6 +54,7 @@ namespace OngProject
             services.AddScoped<IContactService, ContactService>();
             services.AddAWSService<IAmazonS3>();
             services.AddTransient<AwsS3Service>();
+            services.AddSingleton<IMailService, MailService>();
 
             services.AddDbContextPool<ONGDBContext>(optionsAction: (provider, builder) =>
             {

@@ -30,5 +30,18 @@ namespace OngProject.Services
             
             await _sendGridClient.SendEmailAsync(msg);
         }
+
+        public async Task SendByEmail(string email)
+        {
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress("santidota2012@gmail.com", "API de ONG SOMOS MAS"),
+                Subject = "",
+                PlainTextContent = ""
+            };
+            msg.AddTo(new EmailAddress(email, "Contacto"));
+
+            await _sendGridClient.SendEmailAsync(msg);
+        }
     }
 }
