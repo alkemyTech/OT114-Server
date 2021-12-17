@@ -8,6 +8,8 @@ namespace OngProject.Repositories
         public RolesRepository(ONGDBContext dbContext) : base(dbContext)
         {
         }
+
+
     }
 }
 

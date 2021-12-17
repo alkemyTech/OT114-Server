@@ -1,29 +1,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OngProject.Data;
 using OngProject.Interfaces;
-using OngProject.Repositories;
 using OngProject.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using SendGrid.Extensions.DependencyInjection;
 using Amazon.S3;
 
 namespace OngProject
@@ -51,6 +42,8 @@ namespace OngProject
             services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<ITestimonialService, TestimonialService>();
             services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<ICommentsService, CommentsService>();
+
             services.AddAWSService<IAmazonS3>();
             services.AddTransient<AwsS3Service>();
 
