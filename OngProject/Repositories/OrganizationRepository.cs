@@ -20,15 +20,21 @@ namespace OngProject.Repositories
 
         public override Organization Delete(int id)
         {
-            Organization orgToDelete = _dbContext.Find<Organization>(id);
-            if (orgToDelete.deletedAt == null)
+            Organization OrgToDelete = _dbContext.Find<Organization>(id);
+
+            if (OrgToDelete is not null)
             {
-                orgToDelete.deletedAt = DateTime.Now;
+                OrgToDelete.deletedAt = DateTime.Now;
+                _dbContext.Attach(OrgToDelete);
+                _dbContext.Entry(OrgToDelete).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+                return OrgToDelete;
             }
-            _dbContext.Attach(orgToDelete);
-            _dbContext.Entry(orgToDelete).State = EntityState.Modified;
-            _dbContext.SaveChanges();
-            return orgToDelete;
+            else
+            {
+                throw new Exception("La Organizacion no existe");
+            }
+
+
         }
-    }
 }

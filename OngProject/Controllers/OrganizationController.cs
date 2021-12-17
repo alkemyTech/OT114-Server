@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OngProject.Controllers
 {
@@ -21,20 +20,16 @@ namespace OngProject.Controllers
             _organizationService = organizationService;
         }
 
-        //GET api/<OrganizationController>/5
         [HttpGet]
-//campos name, image, phone y address de la Organización
+        [Route("public")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<Organization>> GetById(int id)
         {
             try
             {
-                if (true)
-                {
-
-                }
                 var organization = await _organizationService.GetById(id);
 
-                if (organization.Id == id)
+                if (organization.deletedAt)
                 {
                     return organization;
                 }
@@ -45,8 +40,8 @@ namespace OngProject.Controllers
             }
             catch (System.Exception ex)
             {
-                string error = ex.Message;
-                return NoContent();
+                string err = ex.Message;
+                throw;
             }
         }
     }
