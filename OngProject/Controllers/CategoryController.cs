@@ -60,7 +60,7 @@ namespace OngProject.Controllers
             {
                 var category = await _categoryService.GetById(id);
 
-                if (category is null)
+                if (category.deletedAt is null)
                 {
                     return category;
                 }
