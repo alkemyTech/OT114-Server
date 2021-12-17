@@ -29,7 +29,7 @@ namespace OngProject.Controllers
             {
                 var organization = await _organizationService.GetById(id);
 
-                if (organization.deletedAt)
+                if (organization.deletedAt is not null)
                 {
                     return organization;
                 }

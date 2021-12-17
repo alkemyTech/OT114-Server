@@ -12,6 +12,7 @@ namespace OngProject.Models
 
         [Required]
         public string Name { get; set; }
+
         public int Image { get; set; }
         [Required]
         public string Address { get; set; }
