@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
-using OngProject.ViewModels.Roles;
 
 namespace OngProject.Controllers
 {
@@ -35,26 +34,26 @@ namespace OngProject.Controllers
 
         [HttpPost]
         [Route("/CrearRoles")]
-        public IActionResult Post(RolesVM rolesPostVM)
+        public IActionResult Post(Roles roles)
         {
-            var roles = new Roles
+            var role = new Roles
             {
-                Name = rolesPostVM.Name,
-                Description = rolesPostVM.Description
+                Name = roles.Name,
+                Description = roles.Description
             };
-            _rolesService.AddRoles(roles);
-            return Ok(rolesPostVM);
+            _rolesService.AddRoles(role);
+            return Ok(roles);
 
         }
 
         [HttpPut]
         [Route("/ActualizarRoles")]
-        public IActionResult Put(RolesPutVM rolesViewModel)
+        public IActionResult Put(Roles roles)
         {
-            var rolesEdit = _rolesService.GetById(rolesViewModel.Id);
-            if (rolesEdit == null) return NotFound($"El rol con Id {rolesViewModel.Id} no existe :(");
-            rolesEdit.Name = rolesViewModel.Name;
-            rolesEdit.Description = rolesViewModel.Description;
+            var rolesEdit = _rolesService.GetById(roles.Id);
+            if (rolesEdit == null) return NotFound($"El rol con Id {roles.Id} no existe :(");
+            rolesEdit.Name = roles.Name;
+            rolesEdit.Description = roles.Description;
 
             _rolesService.UpdateRoles(rolesEdit);
             return Ok(rolesEdit);

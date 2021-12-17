@@ -18,6 +18,8 @@ namespace OngProject.UnitOfWork
         private ActivityRepository _activityRepository;
         private TestimonialRepository _testimonialRepository;
         private ContactRepository _contactRepository;
+        private CommentsRepository _commentsRepository;
+
 
         #endregion
         public UOW()
@@ -139,6 +141,18 @@ namespace OngProject.UnitOfWork
                     _contactRepository = new ContactRepository(_context);
                 }
                 return _contactRepository;
+            }
+        }
+
+        public CommentsRepository commentsRepository
+        {
+            get
+            {
+                if (_contactRepository == null)
+                {
+                    _contactRepository = new ContactRepository(_context);
+                }
+                return _commentsRepository;
             }
         }
 
