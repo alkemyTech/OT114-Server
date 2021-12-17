@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OngProject.Interfaces;
 using OngProject.Models;
 using OngProject.Repositories;
@@ -19,23 +20,79 @@ namespace OngProject.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Category>>> GetAll()
         {
-            var categories = await _categoryService.GetAll();
-            if (categories.Count == 0)
+            try
             {
-                return NotFound();
-            }
+                var categories = await _categoryService.GetAll();
+                var ListaNombres = new List<Category>();
 
-            return Ok(categories);
+                if (categories.Count == 0)
+                {
+                    return NoContent();
+                }
+
+                foreach (var item in categories)
+                {
+                    var tempName = new Category
+                    {
+                        Name = item.Name
+                    };
+                    ListaNombres.Add(tempName);
+                }
+
+                return ListaNombres;
+
+            }
+            catch (System.Exception ex)
+            {
+                string err = ex.Message;
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Category>> GetById(int id)
+        {
+            try
+            {
+                var category = await _categoryService.GetById(id);
+
+                if (category.deletedAt is null)
+                {
+                    return category;
+                }
+                else
+                {
+                    return StatusCode(404);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                string err = ex.Message;
+                throw;
+            }
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Category cat)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Post(Category category)
         {
-            var catetoadd = await _categoryService.Insert(cat);
+            //control de string hecho en la entidad category
+            if (category.Name is null)
+            {
+                return StatusCode(404);
+            }
+            Category NewCategory = new Category
+            {
+                Name = category.Name
+            };
 
-            return Ok(catetoadd);
+            var Newcat = await _categoryService.Insert(NewCategory);
+
+            return Ok(Newcat);
         }
 
         [HttpPut]
@@ -55,11 +112,6 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            var category = _categoryService.GetById(id);
-
-            if (category == null)
-                return NotFound($"La categoría con id {id} no existe.");
-
             _categoryService.Delete(id);
 
             return Ok("La categoría se borró correctamente.");
