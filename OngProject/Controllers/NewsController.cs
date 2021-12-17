@@ -50,5 +50,33 @@ namespace OngProject.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
             }
         }
+        [HttpPut]
+        public async Task<IActionResult> Put(News news)
+        {
+            var NewsUpdate = await _newsService.GetById(news.Id);
+
+            if(NewsUpdate == null)
+            {
+                return NoContent();
+            }
+
+            NewsUpdate.Image = news.Image;
+            NewsUpdate.Name = news.Name;
+            NewsUpdate.Text = news.Text;
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _newsService.Update(NewsUpdate);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Ok(NewsUpdate);
+        }
     }
 }
