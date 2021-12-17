@@ -21,7 +21,7 @@ namespace OngProject.Repositories
 
         }
 
-        public List<TEntity> GetAll()
+        public virtual List<TEntity> GetAll()
         {
             return _dbContext.Set<TEntity>().ToList();
         }
@@ -29,7 +29,6 @@ namespace OngProject.Repositories
         public TEntity GetById(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
-
         }
 
         public TEntity Add(TEntity entity)

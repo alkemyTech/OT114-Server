@@ -9,6 +9,7 @@ namespace OngProject.Models
         public int Id { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
 
         public string Description { get; set; }

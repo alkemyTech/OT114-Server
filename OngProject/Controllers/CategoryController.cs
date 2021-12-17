@@ -47,8 +47,8 @@ namespace OngProject.Controllers
             }
             catch (System.Exception ex)
             {
-                string error = ex.Message;
-                return NoContent();
+                string err = ex.Message;
+                throw;
             }
         }
 
@@ -60,7 +60,7 @@ namespace OngProject.Controllers
             {
                 var category = await _categoryService.GetById(id);
 
-                if (category.Id == id && category.deletedAt is not null)
+                if (category is null)
                 {
                     return category;
                 }
@@ -71,8 +71,8 @@ namespace OngProject.Controllers
             }
             catch (System.Exception ex)
             {
-                string error = ex.Message;
-                return NoContent();
+                string err = ex.Message;
+                throw;
             }
         }
 
@@ -80,6 +80,11 @@ namespace OngProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Post(Category category)
         {
+            //control de string hecho en la entidad category
+            if (category.Name is null)
+            {
+                return StatusCode(404);
+            }
             Category NewCategory = new Category
             {
                 Name = category.Name
@@ -107,11 +112,6 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            var category = _categoryService.GetById(id);
-
-            if (category == null)
-                return NotFound($"La categoría con id {id} no existe.");
-
             _categoryService.Delete(id);
 
             return Ok("La categoría se borró correctamente.");

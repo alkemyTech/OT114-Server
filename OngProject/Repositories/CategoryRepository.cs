@@ -19,18 +19,27 @@ namespace OngProject.Repositories
             _dbContext = context;
         }
 
+        public override List<Category> GetAll()
+        {
+            return _dbContext.Categories.Where(cate => cate.deletedAt == null).ToList();
+        }
 
         public override Category Delete(int id)
         {
             Category catTodelete = _dbContext.Find<Category>(id);
-            if (catTodelete.deletedAt == null)
+
+            if (catTodelete is not null)
             {
                 catTodelete.deletedAt = DateTime.Now;
+                _dbContext.Attach(catTodelete);
+                _dbContext.Entry(catTodelete).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+                return catTodelete;
             }
-            _dbContext.Attach(catTodelete);
-            _dbContext.Entry(catTodelete).State = EntityState.Modified;
-            _dbContext.SaveChanges();
-            return catTodelete;
+            else
+            {
+                throw new Exception("La categoria no existe");
+            }
         }
     }
 }
