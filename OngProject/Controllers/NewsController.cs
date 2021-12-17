@@ -54,13 +54,16 @@ namespace OngProject.Controllers
         public async Task<IActionResult> Put(News news)
         {
             var NewsUpdate = await _newsService.GetById(news.Id);
+
             if(NewsUpdate == null)
             {
                 return NoContent();
             }
+
             NewsUpdate.Image = news.Image;
             NewsUpdate.Name = news.Name;
             NewsUpdate.Text = news.Text;
+
             try
             {
                 if (ModelState.IsValid)

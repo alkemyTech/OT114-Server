@@ -21,7 +21,10 @@ namespace OngProject.Repositories
         public override News Delete(int id)
         {
             News news = _context.Find<News>(id);
-            if (news.DeletedAt == null)
+            if (news== null || news.DeletedAt == null)
+            {
+                throw new Exception("La novedad no existe.");
+            }
                 news.DeletedAt = DateTime.Now;
             _context.Attach(news);
             _context.Entry(news).State = EntityState.Modified;
