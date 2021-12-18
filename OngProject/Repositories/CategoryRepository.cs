@@ -22,15 +22,20 @@ namespace OngProject.Repositories
 
         public override Category Delete(int id)
         {
-            Category catTodelete = _dbContext.Find<Category>(id);
-            if (catTodelete.deletedAt == null)
+            Category category = _dbContext.Find<Category>(id);
+
+            if ((category == null) || (category.deletedAt != null))
             {
-                catTodelete.deletedAt = DateTime.Now;
+                throw new Exception("la categoria no existe");
             }
-            _dbContext.Attach(catTodelete);
-            _dbContext.Entry(catTodelete).State = EntityState.Modified;
-            _dbContext.SaveChanges();
-            return catTodelete;
+            else
+            {
+                category.deletedAt = DateTime.Now;
+                _dbContext.Attach(category);
+                _dbContext.Entry(category).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+                return category;
+            }
         }
     }
 }

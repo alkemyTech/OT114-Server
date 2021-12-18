@@ -19,29 +19,28 @@ namespace OngProject.Services
 
         public async Task<List<Category>> GetAll()
         {
-            var cate = _unitOfWork.CategoryRepository.GetAll();
-            return cate.ToList();
+            var category = _unitOfWork.CategoryRepository.GetAll();
+            return category.ToList();
         }
         public async Task<Category> GetById(int id)
         {
-            var cate = _unitOfWork.CategoryRepository.GetById(id);
-            return cate;
+            var category = _unitOfWork.CategoryRepository.GetById(id);
+            return category;
         }
         public async Task<Category> Insert(Category cat)
         {
-            var cate = _unitOfWork.CategoryRepository.Add(cat);
-            return cate;
+            var category = _unitOfWork.CategoryRepository.Add(cat);
+            return category;
         }
-
-        public virtual void Delete(int id)
+        public async Task<Category> Delete(int id)
         {
-            _unitOfWork.CategoryRepository.Delete(id);
+            var category = _unitOfWork.CategoryRepository.Delete(id);
+            return category;
         }
-
         public async Task<Category> Update(Category cat)
         {
-            var cate = _unitOfWork.CategoryRepository.Update(cat);
-            return cate;
+            var category = _unitOfWork.CategoryRepository.Update(cat);
+            return category;
         }
     }
 }

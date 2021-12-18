@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
+using OngProject.Services;
 using OngProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace OngProject.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
+        private readonly IMailService _mailService;
 
-        public ContactController(IContactService contactService)
+        public ContactController(IContactService contactService, IMailService mailservice)
         {
             _contactService = contactService;
+            _mailService = mailservice;
         }
 
         [HttpGet]
@@ -37,16 +40,24 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Contact con)
         {
-            if ((con.Name == null) || (con.Email == null))
+            try
             {
-                return BadRequest();
+                if ((con.Name == null) || (con.Email == null))
+                {
+                    return BadRequest("Debe ingresar nombre y email.");
+                }
+                else
+                {
+                    var contact = await _contactService.Insert(con);
+                    await _mailService.SendNotification(contact.Email);
+                    return Ok(contact);
+                }
             }
-            else
+            catch(Exception e)
             {
-                var contact = await _contactService.Insert(con);
-
-                return Ok(contact);
+                return BadRequest(e.Message);
             }
+            
         }
 
         [HttpDelete]
