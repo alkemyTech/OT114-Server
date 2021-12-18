@@ -59,7 +59,7 @@ namespace OngProject.Controllers
             try
             {
                 await _categoryService.Delete(id);
-                return Ok("usuario borrado correctamente");
+                return Ok("categoria borrada correctamente");
             }
             catch (Exception e)
             {
