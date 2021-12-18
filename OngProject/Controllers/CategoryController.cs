@@ -40,16 +40,16 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(Category categ)
+        public async Task<ActionResult> Put(Category cat)
         {
-            var category = _categoryService.GetById(categ.Id);
+            var cate = _categoryService.GetById(cat.Id);
 
-            if (category == null)
-                return NotFound($"La categoría con id {categ.Id} no existe.");
+            if ((cate == null) || (cate.Result.deletedAt != null))
+                return NotFound($"La categoría con id {cat.Id} no existe.");
 
-            var cat = await _categoryService.Update(categ);
+            var category = await _categoryService.Update(cat);
 
-            return Ok(cat);
+            return Ok(category);
         }
 
         [HttpDelete]
