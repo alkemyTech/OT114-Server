@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
-using OngProject.ViewModels.Roles;
 
 namespace OngProject.Controllers
 {
@@ -35,7 +34,7 @@ namespace OngProject.Controllers
 
         [HttpPost]
         [Route("/CrearRoles")]
-        public IActionResult Post(RolesVM rolesPostVM)
+        public IActionResult Post()
         {
             var roles = new Roles
             {

@@ -9,11 +9,11 @@ namespace OngProject.Repositories
 {
     public class SlideRepository : BaseRepository<Slide, ONGDBContext>
     {
-        public SlideRepository(ONGDBContext context)
-            : base(context)
+        private readonly ONGDBContext _context;
+        public SlideRepository(ONGDBContext context) : base(context)
         {
-
+            _context = context;
         }
-       
+
     }
 }

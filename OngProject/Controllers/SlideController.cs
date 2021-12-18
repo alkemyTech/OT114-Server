@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
 using System.Collections.Generic;
@@ -28,6 +29,18 @@ namespace OngProject.Controllers
             }
 
             return Ok(slides);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Slide>> GetById(int id)
+        {
+            var slide = await _slideService.GetById(id);
+            if(slide == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            return Ok(slide);
         }
 
         [HttpPost]

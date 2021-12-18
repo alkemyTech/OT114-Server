@@ -10,10 +10,8 @@ namespace OngProject.Models
         public int Id { get; set; }
         public string ImageUrl { get; set; }
         public string Text { get; set; }
-
         public string Order { get; set; }
-
-        //public int OrderId { get; set; }
-        //public int OrganizacionId { get; set; }
+        public int OrderId { get; set; }
+        public int OrganizacionId { get; set; }
     }
 }

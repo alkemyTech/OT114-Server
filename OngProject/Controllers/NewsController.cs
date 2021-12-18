@@ -24,7 +24,6 @@ namespace OngProject.Controllers
 
         [HttpGet]
         [Route("{id}")]
-
         public async Task<ActionResult<News>> GetById(int id)
         {
             var news = await _newsService.GetById(id);
@@ -34,7 +33,7 @@ namespace OngProject.Controllers
                 return NotFound($"la novedad con id {id} no existe.");
             }
 
-            return news;
+            return Ok(news);
         }
 
         [HttpPost]
