@@ -54,12 +54,8 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public  async Task<IActionResult> Delete(int id)
         {
-            await  _newsService.GetById(id);
+            var news = await  _newsService.GetById(id);
             
-            if(id == 0)
-            {
-                return NotFound();
-            }
             try
             {
                 _newsService.Delete(id);
