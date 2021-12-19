@@ -3,6 +3,7 @@ using OngProject.Models;
 using OngProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -33,9 +34,15 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Member mem)
         {
-            var member = await _memberService.Insert(mem);
-
-            return Ok(member);
+            if ((string.IsNullOrEmpty(mem.Name)) || (mem.Name.All(char.IsDigit)))
+            {
+                return BadRequest("Debe ingresar un nombre.");
+            }
+            else
+            {
+                var member = await _memberService.Insert(mem);
+                return Ok(member);
+            }  
         }
 
         [HttpPut]
