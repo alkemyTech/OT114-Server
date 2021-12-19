@@ -39,14 +39,14 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(Member mem)
+        public async Task<ActionResult> Put(Member m)
         {
-            var m = _memberService.GetById(mem.Id);
+            var mem = _memberService.GetById(m.Id);
 
-            if (m == null)
-                return NotFound($"El Miembro con id {mem.Id} no existe.");
+            if ((mem == null) || (mem.Result.DeletedAt != null))
+                return NotFound($"El Miembro con id {m.Id} no existe.");
 
-            var member = await _memberService.Update(mem);
+            var member = await _memberService.Update(m);
 
             return Ok(member);
         }
