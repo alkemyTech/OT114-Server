@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OngProject.Models;
-
+using System;
 
 namespace OngProject.Data
 {
@@ -20,7 +20,8 @@ namespace OngProject.Data
                 Id =1,
                 Name= "Últimas Novedades",
                 Text = "texto complementario",
-                Image = "Sin Imagen"
+                Image = "Sin Imagen",
+                DeletedAt = DateTime.Now
             });
             modelBuilder.Entity<User>(entity => {
                 entity.HasIndex(e => e.Email).IsUnique();
