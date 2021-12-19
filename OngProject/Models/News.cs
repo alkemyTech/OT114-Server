@@ -17,7 +17,7 @@ namespace OngProject.Models
         public string Text { get; set; }
 
         [Required]
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public Category Category { get; set; }
        
