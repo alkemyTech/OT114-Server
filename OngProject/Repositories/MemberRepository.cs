@@ -22,12 +22,19 @@ namespace OngProject.Repositories
         public override Member Delete(int id)
         {
             Member member = _context.Find<Member>(id);
-            if(member.DeletedAt == null)
-                member.DeletedAt = DateTime.Now;    
-            _context.Attach(member);
-            _context.Entry(member).State = EntityState.Modified;
-            _context.SaveChanges();
-            return member;
+
+            if ((member == null) || (member.DeletedAt != null))
+            {
+                throw new Exception("el miembro no existe");
+            }
+            else
+            {
+                member.DeletedAt = DateTime.Now;
+                _context.Attach(member);
+                _context.Entry(member).State = EntityState.Modified;
+                _context.SaveChanges();
+                return member;
+            }
         }
     }
 }
