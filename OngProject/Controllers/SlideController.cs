@@ -44,9 +44,9 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Slide mem)
+        public async Task<ActionResult> Post(Slide s)
         {
-            var slide = await _slideService.Insert(mem);
+            var slide = await _slideService.Insert(s);
 
             return Ok(slide);
         }

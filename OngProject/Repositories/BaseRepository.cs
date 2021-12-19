@@ -13,7 +13,11 @@ namespace OngProject.Repositories
 
     {
         private readonly TContext _dbContext;
-
+        private DbSet<TEntity> _dbSet;
+        protected DbSet<TEntity> DbSet
+        {
+            get { return _dbSet ??= _dbContext.Set<TEntity>(); }
+        }
 
         protected BaseRepository(TContext dbContext)
         {
@@ -26,7 +30,7 @@ namespace OngProject.Repositories
             return _dbContext.Set<TEntity>().ToList();
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
 

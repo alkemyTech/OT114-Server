@@ -18,8 +18,6 @@ namespace OngProject.Repositories
         {
             _dbContext = context;
         }
-
-
         public override Category Delete(int id)
         {
             Category category = _dbContext.Find<Category>(id);

@@ -16,7 +16,6 @@ namespace OngProject.Repositories
         {
             _dbContext = context;
         }
-
         public override Activity Delete(int id)
         {
             Activity ActiTodelete = _dbContext.Find<Activity>(id);

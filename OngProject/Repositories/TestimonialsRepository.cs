@@ -16,8 +16,6 @@ namespace OngProject.Repositories
         {
             _dbContext = context;
         }
-
-
         public override Testimonials Delete(int id)
         {
             Testimonials TestiToDelete = _dbContext.Find<Testimonials>(id);
