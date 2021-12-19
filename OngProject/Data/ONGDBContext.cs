@@ -29,5 +29,6 @@ namespace OngProject.Data
         public DbSet<Member> Members { get; set; }
         public DbSet<Testimonials> Testimonials { get; set; }
         public DbSet<Slide> Slides { get; set; }
+        public DbSet<News> News { get; set; }
     }
 }

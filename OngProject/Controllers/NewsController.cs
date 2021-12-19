@@ -54,11 +54,15 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public  async Task<IActionResult> Delete(int id)
         {
-            var news = await  _newsService.GetById(id);
+            var news = await _newsService.Delete(id);
+            if(news == null)
+            {
+                return NotFound("La novedad que intenta eliminar no existe");
+            }
             
             try
-            {
-                _newsService.Delete(id);
+            {                
+                await _newsService.Delete(id);
             }
             catch (Exception)
             {
@@ -66,7 +70,7 @@ namespace OngProject.Controllers
                 throw;
             }
 
-            return Ok();
+            return Ok("Se ha eliminado la novedad correctamente.");
         }
     }
 }
