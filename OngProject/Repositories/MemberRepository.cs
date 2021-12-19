@@ -15,6 +15,10 @@ namespace OngProject.Repositories
         {
             _context = context;
         }
+        public override List<Member> GetAll()
+        {
+            return DbSet.Where(m => m.DeletedAt == null).ToList();
+        }
         public override Member Delete(int id)
         {
             Member member = _context.Find<Member>(id);
