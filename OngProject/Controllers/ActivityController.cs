@@ -37,7 +37,17 @@ namespace OngProject.Controllers
         {
             var Postactivity = new Activity();
 
+            
+            if (string.IsNullOrEmpty(Postactivity.Content))
+            {
+                return NoContent();
+            }
 
+            if (string.IsNullOrEmpty(Postactivity.Name))
+            {
+                return NoContent();
+            }
+            
             try
             {
                 if (ModelState.IsValid)
@@ -50,16 +60,6 @@ namespace OngProject.Controllers
             {
 
                 throw;
-            }
-
-            if (string.IsNullOrEmpty(Postactivity.Content))
-            {
-                return NoContent();
-            }
-
-            if (string.IsNullOrEmpty(Postactivity.Name))
-            {
-                return NoContent();
             }
 
             return Ok(Postactivity);
