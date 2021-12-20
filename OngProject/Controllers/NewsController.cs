@@ -16,10 +16,26 @@ namespace OngProject.Controllers
     public class NewsController : ControllerBase
     {
         private readonly INewsService _newsService;
-
+        private readonly int records = 10;
         public NewsController(INewsService newsService)
         {
             _newsService = newsService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetNews(int? pages)
+        {
+            int _page = pages ?? 1;
+            var news = await _newsService.GetAll();
+            decimal totalRecords = news.Count();
+            int total_pages = Convert.ToInt32(Math.Ceiling(totalRecords / records));
+            var query = news.Skip((_page - 1) * records).Take(records).ToList();
+            return Ok(new
+            {
+                pages = total_pages,
+                records = query,
+                current_page = _page
+            }
+                );
         }
 
         [HttpGet]
