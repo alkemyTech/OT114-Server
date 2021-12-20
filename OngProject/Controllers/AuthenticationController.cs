@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using OngProject.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OngProject.Controllers
 {
     [ApiController]
-    [Route(template: "api/[controller]")]
+    [Route("api/[controller]")]
     public class AuthenticationController : ControllerBase
     {
         //Registro
@@ -34,14 +35,32 @@ namespace OngProject.Controllers
             _signInManager = signInManager;
             _mailService = mailService;
         }
+        [HttpGet]
+        [Route("/me")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<List<User>>> GetMe([FromBody] string username, string password)
+        {
+            //Chequear que el usuario exista y que la password provista sea correcta
+            var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
+            if (result.Succeeded)
+            {
+                var currentUser = await _userManager.FindByNameAsync(username);
+                if (currentUser.DeletedAt == null) //chequeo que esté activo
+                {
+                    return Ok(currentUser);//deberia devolver la entidad completa
+                }
+
+            }
+            return BadRequest();
+        }
 
         [HttpPost]
-        [Route(template: "register")]
-        public async Task<IActionResult> Register(RegistrationRequestViewModel model) //async para poder usar await
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody]string name, string password, string email) //async para poder usar await
         {
             /**await para esperar a que el usuario termine*/
             //Revisar si existe usuario
-            var userExists = await _userManager.FindByNameAsync(model.Username);
+            var userExists = await _userManager.FindByNameAsync(name);
 
             //Si existe, devolver error
             if (userExists != null)
@@ -52,51 +71,46 @@ namespace OngProject.Controllers
             //Si no existe, registrar al usuario
             var user = new User
             {
-                UserName = model.Username,
-                Email = model.Email,
-                IsActive = true
+                UserName = name,
+                Email = email,
+                Password = password
             };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     status = "Error",
-                    Message = $"User Creation Failed! Errors:{string.Join(", ", result.Errors.Select(x => x.Description))}"
+                    Message = $"User Creation Failed! Errors:{string.Join(", ", result.Errors.Select(x => x.Description))}"//agarra los errores y los separa con una coma
                 });
 
             }
-
-            await  _mailService.SendEmail(user);
-           
-
-            return Ok(new
-            {
-                status = "Success",
-                Message = $"User created Succesfully!"
-
-
-            }); ;
+            return Ok(await GetToken(user)); 
         }
 
 
         //Login
         [HttpPost]
-        [Route(template: "login")]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] string name, string password)
         {
             //Chequear que el usuario exista y que la password provista sea correcta
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(name, password, false, false);
 
             if (result.Succeeded)
             {
-                var currentUser = await _userManager.FindByNameAsync(model.Username);
-                if (currentUser.IsActive)
+                var currentUser = await _userManager.FindByNameAsync(name);
+                if (currentUser.DeletedAt == null) //chequeo que esté activo
                 {
                     //Generar el token
-                    //Devolver Roken creado [y que no devuelva toda la info]
+                    //Devolver Roken creado
+
+                    var datosToken = await GetToken(currentUser);
+                    currentUser.MyToken = datosToken.Token;
                     return Ok(await GetToken(currentUser));
+
+
 
                 }
             }
@@ -104,7 +118,7 @@ namespace OngProject.Controllers
             return StatusCode(StatusCodes.Status401Unauthorized, new
             {
                 status = "Error",
-                Message = $"User {model.Username} not authorized!"
+                Message = $"User {name} not authorized!"
             });
 
 
@@ -131,7 +145,7 @@ namespace OngProject.Controllers
             var token = new JwtSecurityToken(
                 issuer: "https://localhost:5001",
                 audience: "https://localhost:5001",
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddHours(4),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSignInKey, SecurityAlgorithms.HmacSha256));
 
@@ -144,4 +158,11 @@ namespace OngProject.Controllers
 
     }
 
+    internal class LoginResponseViewModel //mini viewmodel 
+    {
+        public string Token { get; set; }
+        public DateTime ValidTo { get; set; }
+    }
+
+   
 }

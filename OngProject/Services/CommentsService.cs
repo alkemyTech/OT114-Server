@@ -16,11 +16,11 @@ namespace OngProject.Services
             _unitOfWork = unitOfWork;
         }
 
-        //public Task<Comments> Delete(int id)
-        //{
-        //    var comment = _unitOfWork.CommentsRepository.Delete(id);
-        //    return comment;
-        //}
+        public Task<Comments> Delete(int id)
+        {
+            var comment = _unitOfWork.CommentsRepository.Delete(id);
+            return comment();
+        }
 
         public Task<List<Comments>> GetAll()
         {

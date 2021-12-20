@@ -2,6 +2,8 @@
 using OngProject.Data;
 using System;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OngProject.Repositories
 {
@@ -12,6 +14,13 @@ namespace OngProject.Repositories
         {
             _context = context;
         }
+
+        public override List<User> GetAll()
+        {
+            var UserActive = _context.Users.Where(c => c.DeletedAt == null);
+            return (List<User>)UserActive; //no lo probé
+        }
+
         public override User Delete(int id)
         {
             User usuario = _context.Find<User>(id);

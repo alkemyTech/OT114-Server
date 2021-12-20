@@ -88,11 +88,18 @@ namespace OngProject.Controllers
 
         }
 
-        //[HttpDelete]
-        //[Route("{id}")]
-        //public async Task<ActionResult> Delete(int id)
-        //{
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var comment = await _commentsService.Delete(id);
 
-        //}
+            if (comment.DeletedAt != null)
+                return NotFound("El Comentario  no existe.");
+
+            else
+                return Ok("El Comentario se eliminó correctamente.");
+
+        }
     }
 }

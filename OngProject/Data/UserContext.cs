@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OngProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace OngProject.Data
 {
-    public class UserContext : IdentityDbContext<User>
+    public class UserContext : IdentityDbContext<User> //el DBSET se genera automaticamente
     {
         //Hereda de un Identity context, da funcionalidad particular
 
 
-        private const string Schema = "dbo";
-        public UserContext()
-        {
-
-        }
+        private const string Schema = "users";
+        
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
 
