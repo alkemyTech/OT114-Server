@@ -61,6 +61,7 @@ namespace OngProject.Controllers
         }
 
         [HttpDelete]
+        [Route("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             try

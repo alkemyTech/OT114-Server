@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -54,13 +55,15 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var member = await _memberService.Delete(id);
-
-            if (member.DeletedAt != null)
-                return NotFound($"El Miembro con id {id} no existe.");
-            
-            else
-            return Ok("El Miembro se borró correctamente.");
+            try
+            {
+                await _memberService.Delete(id);
+                return Ok("miembro borrado correctamente");
+            }
+            catch(Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }
