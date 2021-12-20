@@ -8,9 +8,9 @@ namespace OngProject.Models
     public class Activity
     {
         public int Id { get; set; }
-        public char Name { get; set; }
+        public string Name { get; set; }
         public string Content { get; set; }
-        public char Image { get; set; }
+        public string Image { get; set; }
         public DateTime? deletedAt { get; set; } = null;
     }
 }
