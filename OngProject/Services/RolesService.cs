@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 namespace OngProject.Services
 {
-    public class RolesService : BaseRepository<Roles, ONGDBContext>, IRolesService
+    public class RolesService : IRolesService
     {
         private readonly UOW _unitOfWork;
 
-        public RolesService(ONGDBContext dbContext) : base(dbContext)
+        public RolesService(ONGDBContext dbContext) 
         {
 
         }
 
-        public RolesService(UOW unitOfWork, ONGDBContext dbContext) : base(dbContext)
+        public RolesService(UOW unitOfWork, ONGDBContext dbContext) 
         {
             _unitOfWork = unitOfWork;
         }
@@ -24,27 +24,27 @@ namespace OngProject.Services
       
         public Roles AddRoles(Roles roles)
         {
-            return Add(roles);
+            return _unitOfWork.RolesRepository.Add(roles);
         }
 
         public Roles DeleteRoles(int id)
         {
-            return Delete(id);
+            return _unitOfWork.RolesRepository.Delete(id);
         }
 
         public Roles GetById(int id)
         {
-            return Get(id); 
+            return _unitOfWork.RolesRepository.GetById(id);
         }
 
         public List<Roles> GetRoles()
         {
-            return GetAllEntities();
+            return _unitOfWork.RolesRepository.GetAll();
         }
 
         public Roles UpdateRoles(Roles roles)
         {
-            return Update(roles);
+            return _unitOfWork.RolesRepository.Update(roles);
         }
     }
 }

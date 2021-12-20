@@ -10,6 +10,8 @@ using OngProject.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using OngProject.Services.Interfaces;
 using OngProject.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace OngProject.Controllers
 {
@@ -22,6 +24,34 @@ namespace OngProject.Controllers
         {
             _userService = userService;
         }
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult<List<User>>> GetAll()
+        {
+            var users = await _userService.GetAll();
+            if (users.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+        }
+
+        //[HttpPatch] //SIN TERMINAR
+        //[Authorize(Roles = "User")]
+        //public async Task<ActionResult<List<User>>> Patch(int id, JsonPatchDocument<User> patchDocument)
+        //{
+        //    var Updateus = await _userService.GetById(id);
+        //    if (Updateus is null)
+        //    {
+        //        return BadRequest();
+        //    }            
+        //    patchDocument.ApplyTo(
+        //    return Ok(await _userService.Update(Updateus));
+
+
+        //}
 
         [HttpDelete]
         [Route("{id}")]

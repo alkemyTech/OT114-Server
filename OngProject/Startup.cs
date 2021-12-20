@@ -91,7 +91,7 @@ namespace OngProject
             });
 
             //Inyecta las dependencias necesarias de identity
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole/*aca agregar entidad roles*/>().AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
             //Toma un usuario, los roles y coloca la configuración por default.
 
             //Añade un tipo de autentificación:
@@ -99,27 +99,28 @@ namespace OngProject
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;//chequear si se debe eliminar la linea
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddJwtBearer(options => {
-                    options.SaveToken = true; // que guarde el toke na autorizado
-                    options.RequireHttpsMetadata = false; //no necesito aun https
+                    options.SaveToken = true; // que guarde el token autorizado
+                    options.RequireHttpsMetadata = false; //en enterono de desarrolo false, no necesito aun https
                     options.TokenValidationParameters = new TokenValidationParameters
                     { //parametros para la validacion del token
                         ValidateIssuer = true, //entidad que genera el token
-                        ValidateAudience = true, //los que usan o ven el token
-                        ValidAudience = "https://localhost:5001",
+                        ValidateAudience = true, //usuarios que usan o ven el token
+                        ValidAudience = "https://localhost:5001", 
                         ValidIssuer = "https://localhost:5001",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeySecretaSuperLargaDeAutorizacion")) //Encargado de proveernos info con la llave secreta para ingresar a la aplicación
-                                                                                                                                  // TOKEN = HEADER + PILOT + FIRMA
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeySecretaSuperLargaDeAutorizacion")) 
+                        //Encargado de proveernos info con la llave secreta para ingresar a la aplicación
+                        // TOKEN = HEADER + PILOT + FIRMA
                     };
                 });
 
             services.AddDbContext<UserContext>(optionsAction: (services, options) =>
             {
                 options.UseInternalServiceProvider(services);
-                options.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Database=OngDb;Integrated Security=True;");
+                options.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Database=UserOngDb;Integrated Security=True;");
             });
 
         }

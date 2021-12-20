@@ -144,7 +144,7 @@ namespace OngProject.UnitOfWork
             }
         }
 
-        public CommentsRepository commentsRepository
+        public CommentsRepository CommentsRepository
         {
             get
             {
