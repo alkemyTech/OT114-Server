@@ -9,7 +9,7 @@ namespace OngProject.Services.Interfaces
         Task<List<Slide>> GetAll();
         Task<Slide> GetById(int id);
         Task<Slide> Insert(Slide slide);
-        void Delete(int id);
+        Task<Slide> Delete(int id);
         Task<Slide> Update(Slide slide);
     }
 }

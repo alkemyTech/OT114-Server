@@ -17,7 +17,7 @@ namespace OngProject.Repositories
         }
         public override List<Contact> GetAll()
         {
-            return _context.Contacts.Where(c => c.DeletedAt == null).ToList();
+            return DbSet.Where(c => c.DeletedAt == null).ToList();
         }
         public override Contact Delete(int id)
         {

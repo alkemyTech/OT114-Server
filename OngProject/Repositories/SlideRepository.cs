@@ -1,4 +1,5 @@
-﻿using OngProject.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using OngProject.Data;
 using OngProject.Models;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,15 @@ namespace OngProject.Repositories
 {
     public class SlideRepository : BaseRepository<Slide, ONGDBContext>
     {
-        public SlideRepository(ONGDBContext context)
-            : base(context)
+        private readonly ONGDBContext _context;
+        public SlideRepository(ONGDBContext context) : base(context)
         {
-
+            _context = context;
         }
-       
+        public override Slide GetById(int id)
+        {
+            return DbSet.Include(x => x.Organization).FirstOrDefault(x => x.Id == id);
+        }
+
     }
 }
