@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OngProject.Models;
-
+using System;
 
 namespace OngProject.Data
 {
     public class ONGDBContext : DbContext
     {
-
+        private const string Schema = "ONG";
         public ONGDBContext(DbContextOptions<ONGDBContext> options) : base(options)
         {
            
@@ -14,6 +14,15 @@ namespace OngProject.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {
+            modelBuilder.HasDefaultSchema(Schema);
+            modelBuilder.Entity<News>().HasData(new News()
+            {
+                Id =1,
+                Name= "Últimas Novedades",
+                Text = "texto complementario",
+                Image = "Sin Imagen",
+                DeletedAt = DateTime.Now
+            });
             modelBuilder.Entity<User>(entity => {
                 entity.HasIndex(e => e.Email).IsUnique();
             });
