@@ -93,5 +93,27 @@ namespace OngProject.Controllers
             }
             return Ok(NewsUpdate);
         }
+        [HttpDelete]
+        [Route("{id}")]
+        public  async Task<IActionResult> Delete(int id)
+        {
+            var news = await _newsService.Delete(id);
+            if(news == null)
+            {
+                return NotFound("La novedad que intenta eliminar no existe");
+            }
+            
+            try
+            {                
+                await _newsService.Delete(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return Ok("Se ha eliminado la novedad correctamente.");
+        }
     }
 }

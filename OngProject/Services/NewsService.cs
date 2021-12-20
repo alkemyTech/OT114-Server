@@ -34,9 +34,10 @@ namespace OngProject.Services
             return CreateNews;
         }
 
-        public void Delete(int id)
+        public async Task<News> Delete(int id)
         {
-            _unitOfWork.NewsRepository.Delete(id);
+            var news = _unitOfWork.NewsRepository.Delete(id);
+            return news;
         }
 
         public async Task<News> Update(News news)

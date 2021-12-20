@@ -6,7 +6,7 @@ namespace OngProject.Services
 {
     public interface INewsService
     {
-        void Delete(int id);
+        Task<News> Delete(int id);
         Task<List<News>> GetAll();
         Task<News> GetById(int id);
         Task<News> Insert(News news);
