@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OngProject.Interfaces;
 using OngProject.Models;
 using OngProject.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -110,11 +111,17 @@ namespace OngProject.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _categoryService.Delete(id);
-
-            return Ok("La categoría se borró correctamente.");
+            try
+            {
+                await _categoryService.Delete(id);
+                return Ok("categoria borrada correctamente");
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }

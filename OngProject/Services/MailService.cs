@@ -33,15 +33,23 @@ namespace OngProject.Services
 
         public async Task SendNotification(string email)
         {
-            var msg = new SendGridMessage()
+            try
             {
-                From = new EmailAddress("santidota2012@gmail.com", "API de ONG SOMOS MAS"),
-                Subject = "Formulario de contacto",
-                PlainTextContent = "Se ha recibido el formulario de contacto correctamente."
-            };
-            msg.AddTo(new EmailAddress(email, "Contacto"));
+                var msg = new SendGridMessage()
+                {
+                    From = new EmailAddress("santidota2012@gmail.com", "API de ONG SOMOS MAS"),
+                    Subject = "Formulario de contacto",
+                    PlainTextContent = "Se ha recibido el formulario de contacto correctamente."
+                };
+                msg.AddTo(new EmailAddress(email, "Contacto"));
 
-            await _sendGridClient.SendEmailAsync(msg);
+                await _sendGridClient.SendEmailAsync(msg);
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
         }
     }
 }
