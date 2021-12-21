@@ -66,14 +66,24 @@ namespace OngProject.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var slide = _slideService.GetById(id);
+            var slide = await _slideService.Delete(id);
 
             if (slide == null)
+            {
                 return NotFound($"El Slide con id {id} no existe.");
+            }
 
-            _slideService.Delete(id);
+            try
+            {
+               await _slideService.Delete(id);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
 
             return Ok("El Slide se borró correctamente.");
         }

@@ -19,6 +19,21 @@ namespace OngProject.Repositories
         {
             return DbSet.Include(x => x.Organization).FirstOrDefault(x => x.Id == id);
         }
-
+        public override Slide Delete(int id)
+        {
+            var slide = _context.Find<Slide>(id);
+            if (slide == null || slide.DeletedAt != null)
+            {
+                 throw new Exception("El Slide no existe.");
+            }
+            else
+            {
+                slide.DeletedAt = DateTime.Now;
+                _context.Attach(slide);
+                _context.Entry(slide).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            return slide;
+        }
     }
 }
