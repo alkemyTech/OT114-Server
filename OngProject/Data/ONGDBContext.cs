@@ -30,6 +30,8 @@ namespace OngProject.Data
             modelBuilder.Entity<User>().Property(o => o.IdUser).HasDefaultValueSql("NEXT VALUE FOR IdUser");
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Seed();
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
@@ -40,5 +42,6 @@ namespace OngProject.Data
         public DbSet<Slide> Slides { get; set; }
         public DbSet<Comments> Comments { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Activity> Activities { get; set; }
     }
 }
