@@ -42,16 +42,19 @@ namespace OngProject.Controllers
         {
             try
             {
-                if ((con.Name == null) || (con.Email == null))
+                if (string.IsNullOrEmpty(con.Name))
                 {
-                    return BadRequest("Debe ingresar nombre y email.");
+                    return BadRequest("Debe ingresar nombre.");
                 }
-                else
+                if(string.IsNullOrEmpty(con.Email))
                 {
-                    var contact = await _contactService.Insert(con);
-                    await _mailService.SendNotification(contact.Email);
-                    return Ok(contact);
+                    return BadRequest("Debe ingresar email.");
                 }
+
+                var contact = await _contactService.Insert(con);
+                await _mailService.SendNotification(contact.Email);
+                return Ok(contact);
+                
             }
             catch(Exception e)
             {

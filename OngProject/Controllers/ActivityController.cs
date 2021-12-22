@@ -66,16 +66,16 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(Activity activity)
+        public async Task<ActionResult> Put(Activity a)
         {
-            var acti = _activityService.GetById(activity.Id);
+            var act = await _activityService.GetById(a.Id);
 
-            if (acti == null)
-                return NotFound($"La actividad con id {activity.Id} no existe.");
+            if (act == null)
+                return NotFound($"La actividad con id {a.Id} no existe.");
 
-            var act = await _activityService.Update(activity);
+            var activity = await _activityService.Update(act);
 
-            return Ok(act);
+            return Ok(activity);
         }
 
         [HttpDelete]
