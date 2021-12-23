@@ -5,6 +5,7 @@ using OngProject.Models;
 using OngProject.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -14,6 +15,7 @@ namespace OngProject.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+        private readonly int records = 10;
 
         public CategoryController(ICategoryService categoryService)
         {
@@ -22,12 +24,14 @@ namespace OngProject.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<Category>>> GetAll()
+        public async Task<ActionResult<List<Category>>> GetAll(int? pages)
         {
+
+            var categories = await _categoryService.GetAll();
+            var ListaNombres = new List<Category>();
+
             try
             {
-                var categories = await _categoryService.GetAll();
-                var ListaNombres = new List<Category>();
 
                 if (categories.Count == 0)
                 {
@@ -42,8 +46,7 @@ namespace OngProject.Controllers
                     };
                     ListaNombres.Add(tempName);
                 }
-
-                return ListaNombres;
+                
 
             }
             catch (System.Exception ex)
@@ -51,6 +54,17 @@ namespace OngProject.Controllers
                 string err = ex.Message;
                 throw;
             }
+            int _page = pages ?? 1;
+            decimal totalRecords = ListaNombres.Count();
+            int total_pages = Convert.ToInt32(Math.Ceiling(totalRecords / records));
+            var query = ListaNombres.Skip((_page - 1) * records).Take(records).ToList();
+            return Ok(new
+            {
+
+                pages = total_pages,
+                records = query,
+                current_page = _page
+            });
         }
 
         [HttpGet]
