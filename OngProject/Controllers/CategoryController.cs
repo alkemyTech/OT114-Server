@@ -99,9 +99,9 @@ namespace OngProject.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(Category c)
         {
-            var cate = _categoryService.GetById(c.Id);
+            var cate = await _categoryService.GetById(c.Id);
 
-            if ((cate == null) || (cate.Result.deletedAt != null))
+            if ((cate == null) || (cate.deletedAt != null))
                 return NotFound($"La categoría con id {c.Id} no existe.");
 
             var category = await _categoryService.Update(c);
