@@ -37,6 +37,7 @@ namespace OngProject
             services.AddEntityFrameworkSqlServer();
             
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrganizationService, OrganizationService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<INewsService, NewsService>();
