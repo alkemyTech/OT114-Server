@@ -34,15 +34,18 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Member mem)
         {
-            if ((string.IsNullOrEmpty(mem.Name)) || (mem.Name.All(char.IsDigit)))
+            if ((string.IsNullOrEmpty(mem.Name)))
             {
                 return BadRequest("Debe ingresar un nombre.");
             }
-            else
+            if (mem.Name.All(char.IsDigit))
             {
-                var member = await _memberService.Insert(mem);
-                return Ok(member);
-            }  
+                return BadRequest("no debe ingresar números.");
+            }
+
+            var member = await _memberService.Insert(mem);
+            return Ok(member);
+            
         }
 
         [HttpPut]

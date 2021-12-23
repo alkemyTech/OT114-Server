@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,21 @@ namespace OngProject.Services
 {
     public class AwsS3Service
     {
-        private String bucketName;
-        private IAmazonS3 awsclient;
-
-        public AwsS3Service(IAmazonS3 amazonS3, IConfiguration configuration)
+        private String bucket;
+        private string accessKeyId;
+        private string secretAccessKey;
+        private string region;
+        public AwsS3Service(IConfiguration configuration)
         {
-            this.awsclient = amazonS3;
-            this.bucketName = configuration["AWSS3:BucketName"];
+            this.bucket = configuration["AWSS3:BUCKET"];
+            this.accessKeyId = configuration["AWSS3:ACCESS_KEY_ID"];
+            this.secretAccessKey = configuration["AWSS3:SECRET_ACCESS_KEY"];
+            this.region = configuration["AWSS3:REGION"];
         }
         public async Task<Stream> GetFile(String filename)
         {
-            GetObjectResponse response = await this.awsclient.GetObjectAsync(this.bucketName, filename);
+            var client = new AmazonS3Client(this.accessKeyId, this.secretAccessKey, this.region);
+            GetObjectResponse response = await client.GetObjectAsync(this.bucket, filename);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -33,30 +38,30 @@ namespace OngProject.Services
                 return null;
             }
         }
-
-        public async Task<bool> UploadFileinBucket(Stream stream, String filename)
+        public async Task<string> UploadFileinBucket(IFormFile image)
         {
-            PutObjectRequest request = new PutObjectRequest()
-            {
-                InputStream = stream,
-                Key = filename,
-                BucketName = this.bucketName
-            };
+            var client = new AmazonS3Client(this.accessKeyId, this.secretAccessKey, this.region);
 
-            PutObjectResponse response = await this.awsclient.PutObjectAsync(request);
-            if (response.HttpStatusCode == HttpStatusCode.OK)
+            using (MemoryStream m = new MemoryStream())
             {
-                return true;
+                await image.CopyToAsync(m);
+                PutObjectRequest request = new PutObjectRequest()
+                {
+                    InputStream = m,
+                    Key = image.FileName,
+                    BucketName = this.bucket,
+                    CannedACL = S3CannedACL.PublicRead
+                };
+                await client.PutObjectAsync(request);
             }
-            else
-            {
-                return false;
-            }
+            string url = $"https://{this.bucket}.s3.amazonaws.com/{image.FileName}";
+
+            return url;
         }
-
         public async Task<bool> DeleteFile(String filename)
         {
-            DeleteObjectResponse response = await this.awsclient.DeleteObjectAsync(this.bucketName, filename);
+            var client = new AmazonS3Client(this.accessKeyId, this.secretAccessKey, this.region);
+            DeleteObjectResponse response = await client.DeleteObjectAsync(this.bucket, filename);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -69,3 +74,4 @@ namespace OngProject.Services
         }
     }
 }
+
