@@ -52,16 +52,37 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(Slide mem)
+        public async Task<ActionResult> Put(Slide slide)
         {
-            var m = _slideService.GetById(mem.Id);
+            var slideUpdate = await _slideService.GetById(slide.Id);
 
-            if (m == null)
-                return NotFound($"El Slide con id {mem.Id} no existe.");
+            if (slideUpdate == null || slideUpdate.DeletedAt != null)
+            {
+                return NoContent();
+            }
 
-            var slide = await _slideService.Update(mem);
+            slideUpdate.ImageUrl = slide.ImageUrl;
+            slideUpdate.Text = slide.Text;
+            slideUpdate.Order = slide.Order;
+            slideUpdate.OrderId = slide.OrderId;
+            
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _slideService.Update(slideUpdate);
+                }
 
-            return Ok(slide);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }   
+
+            
+
+            return Ok(slideUpdate);
         }
 
         [HttpDelete]

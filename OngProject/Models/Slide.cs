@@ -16,6 +16,8 @@ namespace OngProject.Models
         public string Text { get; set; }
         [Required]
         public string Order { get; set; }
+        public DateTime? DeletedAt { get; set; }
+
         [Required]
         public int OrderId { get; set; }
 
