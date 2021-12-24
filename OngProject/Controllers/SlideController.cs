@@ -24,12 +24,15 @@ namespace OngProject.Controllers
         public async Task<ActionResult<List<Slide>>> GetAll()
         {
             var slides = await _slideService.GetAll();
+            
             if (slides.Count == 0)
             {
                 return NotFound();
             }
-           
-            return Ok(slides.Select(x=> new {x.ImageUrl,x.Order}));
+
+            var query = slides.OrderBy(x=> x.ImageUrl).Select(p=> p.ImageUrl);
+
+            return Ok(query);
 
         }
 
