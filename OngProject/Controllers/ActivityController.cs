@@ -27,7 +27,7 @@ namespace OngProject.Controllers
         /// <summary>
         /// Gets a list of all activities
         /// </summary>
-        /// <returns>All activities</returns>
+        /// <returns>All activities or an error</returns>
         /// <remarks>
         /// Sample request:
         ///

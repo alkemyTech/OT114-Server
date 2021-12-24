@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OngProject.Controllers
 {
+    /// <summary>
+    /// Controller for User details, register and login
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AuthenticationController : ControllerBase
@@ -35,9 +38,41 @@ namespace OngProject.Controllers
             _signInManager = signInManager;
             _mailService = mailService;
         }
+
+        /// <summary>
+        /// Gets a user details
+        /// </summary>
+        /// <returns>A user or an error</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET: api/me
+        ///     {
+        ///        "IdUser" : 1,
+        ///        "FirstName" : "FFFF" ,
+        ///        "LastName" : "FFFF",
+        ///        "Email" : "FFFF@FFFF.COM",
+        ///        "Password" : "FFFF",
+        ///        "Photo" : "IMG1",
+        ///        "DeletedAt" : "NULL",
+        ///        "roleID" : 1,
+        ///        "MyToken" : "FFFF",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">OK. Returns a user.</response>
+        /// <response code="400">BadRequest. Incorrect format.</response>
+        /// <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+        /// <response code="404">NotFound. Objects not found.</response>
+        /// <response code="500">Internal server error. An error occurred while processing your request.</response>
         [HttpGet]
         [Route("/me")]
         [Authorize(Roles = "User")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<User>>> GetMe([FromBody] string username, string password)
         {
             //Chequear que el usuario exista y que la password provista sea correcta
@@ -54,11 +89,32 @@ namespace OngProject.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Creates a user
+        /// </summary>
+        /// <returns>A user token, or an error</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST: api/register
+        ///     {
+        ///        "name": "FFFF",
+        ///        "password": "FFFF",
+        ///        "email" : "FFFF@FFFF.com"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">OK. Success, returns a token.</response>
+        /// <response code="400">BadRequest. Object not created, incorrect format.</response>
+        /// <response code="500">Internal server error. An error occurred while processing your request.</response>
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody]string name, string password, string email) //async para poder usar await
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Register([FromBody]string name, string password, string email)
         {
-            /**await para esperar a que el usuario termine*/
+     
             //Revisar si existe usuario
             var userExists = await _userManager.FindByNameAsync(name);
 
@@ -89,10 +145,30 @@ namespace OngProject.Controllers
             return Ok(await GetToken(user)); 
         }
 
-
-        //Login
+        /// <summary>
+        /// Login a user
+        /// </summary>
+        /// <returns>A user token, or an error</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST: api/login
+        ///     {
+        ///        "name": "FFFF",
+        ///        "password": "FFFF",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">OK. Success, returns a token.</response>
+        /// <response code="400">BadRequest. Incorrect format.</response>
+        /// <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+        /// <response code="500">Internal server error. An error occurred while processing your request.</response>
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] string name, string password)
         {
             //Chequear que el usuario exista y que la password provista sea correcta
@@ -110,8 +186,6 @@ namespace OngProject.Controllers
                     currentUser.MyToken = datosToken.Token;
                     return Ok(await GetToken(currentUser));
 
-
-
                 }
             }
 
@@ -121,10 +195,7 @@ namespace OngProject.Controllers
                 Message = $"User {name} not authorized!"
             });
 
-
-
         }
-
         private async Task<LoginResponseViewModel> GetToken(User currentUser)
         {
             var userRoles = await _userManager.GetRolesAsync(currentUser);
