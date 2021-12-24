@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -27,8 +28,9 @@ namespace OngProject.Controllers
             {
                 return NotFound();
             }
+           
+            return Ok(slides.Select(x=> new {x.ImageUrl,x.Order}));
 
-            return Ok(slides);
         }
 
         [HttpGet]
