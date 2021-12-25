@@ -17,6 +17,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Amazon.S3;
 using OngProject.Middlewares;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace OngProject
 {
@@ -60,6 +63,9 @@ namespace OngProject
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OngProject", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
                 c.AddSecurityDefinition("Bearer",
                         new OpenApiSecurityScheme
                         {
