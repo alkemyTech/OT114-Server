@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
@@ -8,14 +9,17 @@ namespace OngProject.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public  int IdUser { get; set; }
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
-        //public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        //[Required]
+        //public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
         public string Photo { get; set; }
         public DateTime? DeletedAt { get; set; }
         public Roles roleID { get; set; }
-
         public string MyToken { get; set; }
     }
 }
