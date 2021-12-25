@@ -149,9 +149,9 @@ namespace OngProject.UnitOfWork
         {
             get
             {
-                if (_contactRepository == null)
+                if (_commentsRepository == null)
                 {
-                    _contactRepository = new ContactRepository(_context);
+                    _commentsRepository = new CommentsRepository(_context);
                 }
                 return _commentsRepository;
             }
