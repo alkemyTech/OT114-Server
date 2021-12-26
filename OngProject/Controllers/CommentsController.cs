@@ -89,17 +89,27 @@ namespace OngProject.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin,User")]
         [Route("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             var comment = await _commentsService.Delete(id);
+            var UserID = comment.UserId;
 
-            if (comment.DeletedAt != null)
-                return NotFound("El Comentario  no existe.");
+            if (comment == null)
+            {
+                return StatusCode(404);
+            }
 
+            //comparo si el usuario que elimna es el mismo que lo creo
+            if (UserID.IdUser == id)
+            {
+                return Ok(comment);
+            }
             else
-                return Ok("El Comentario se eliminó correctamente.");
-
+            {
+                return StatusCode(403);
+            }
         }
     }
 }
