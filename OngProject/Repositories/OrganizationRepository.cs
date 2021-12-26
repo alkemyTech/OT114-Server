@@ -17,6 +17,12 @@ namespace OngProject.Repositories
             _dbContext = context;
         }
 
+        public override Organization GetById(int id)
+        {
+            return DbSet.Include(x => x.Slide)
+                .OrderBy(p=>p.Slide.Order)
+                .FirstOrDefault(p => p.Id == id);
+        }
 
         public override Organization Delete(int id)
         {
@@ -37,4 +43,5 @@ namespace OngProject.Repositories
 
 
         }
+    }
 }
