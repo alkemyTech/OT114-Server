@@ -95,13 +95,12 @@ namespace OngProject.Controllers
         {
             var comment = await _commentsService.Delete(id);
             var UserID = comment.UserId;
-
             if (comment == null)
             {
                 return StatusCode(404);
             }
-
-            //comparo si el usuario que elimna es el mismo que lo creo
+            
+            //TO DO: revisar
             if (UserID.IdUser == id)
             {
                 return Ok(comment);
