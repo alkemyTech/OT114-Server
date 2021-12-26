@@ -20,5 +20,7 @@ namespace OngProject.Models
         public int Phone { get; set; }
 
         public DateTime? deletedAt { get; set; } = DateTime.Now;
+
+        public Slide Slide { get; set; }
     }
 }

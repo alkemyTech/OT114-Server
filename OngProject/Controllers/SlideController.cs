@@ -69,7 +69,6 @@ namespace OngProject.Controllers
             slideUpdate.ImageUrl = slide.ImageUrl;
             slideUpdate.Text = slide.Text;
             slideUpdate.Order = slide.Order;
-            slideUpdate.OrderId = slide.OrderId;
             
             try
             {
