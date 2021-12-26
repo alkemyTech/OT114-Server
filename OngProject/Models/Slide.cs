@@ -10,14 +10,16 @@ namespace OngProject.Models
     {
         [Required]
         public int Id { get; set; }
+        
         [Required]
         public string ImageUrl { get; set; }
+        
         [Required]
         public string Text { get; set; }
+        
         [Required]
-        public string Order { get; set; }
-        [Required]
-        public int OrderId { get; set; }
+        public int Order { get; set; }
+        
         [Required]
         public Organization Organization { get; set; }
     }
