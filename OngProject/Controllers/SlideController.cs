@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -23,12 +24,16 @@ namespace OngProject.Controllers
         public async Task<ActionResult<List<Slide>>> GetAll()
         {
             var slides = await _slideService.GetAll();
+            
             if (slides.Count == 0)
             {
                 return NotFound();
             }
 
-            return Ok(slides);
+            var query = slides.OrderBy(x=> x.Order).Select(p=> p.ImageUrl);
+
+            return Ok(query);
+
         }
 
         [HttpGet]

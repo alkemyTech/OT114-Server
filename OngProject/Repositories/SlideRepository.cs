@@ -15,6 +15,12 @@ namespace OngProject.Repositories
         {
             _context = context;
         }
+        
+         public override List<Slide> GetAll()
+        {
+            return DbSet.Where(m => m.DeletedAt == null).ToList();
+        }
+        
         public override Slide GetById(int id)
         {
             return DbSet.Include(x => x.Organization).FirstOrDefault(x => x.Id == id);
