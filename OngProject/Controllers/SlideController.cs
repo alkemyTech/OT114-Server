@@ -46,8 +46,22 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Slide s)
         {
-            var slide = await _slideService.Insert(s);
+            var slide = new Slide();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    slide = await _slideService.Insert(s);
+                }
+                
+            }
+            catch (System.Exception ex)
+            {
 
+                return BadRequest(ex.Message);
+            }
+
+            
             return Ok(slide);
         }
 
