@@ -30,7 +30,7 @@ namespace OngProject.Controllers
                 return NotFound();
             }
 
-            var query = slides.OrderBy(x=> x.ImageUrl).Select(p=> p.ImageUrl);
+            var query = slides.OrderBy(x=> x.Order).Select(p=> p.ImageUrl);
 
             return Ok(query);
 
