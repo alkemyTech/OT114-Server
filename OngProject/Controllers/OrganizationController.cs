@@ -44,5 +44,28 @@ namespace OngProject.Controllers
                 throw;
             }
         }
+
+        [HttpPut]
+        [Route("public")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Put(Organization _organization)
+        {
+            var organization = await _organizationService.GetById(_organization.Id);
+
+            if ((organization == null) || (organization.deletedAt != null)) 
+            {
+                return NotFound($"La organization con id {_organization.Id} no existe.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var orga = await _organizationService.Update(_organization);
+                return Ok(orga);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
     }
 }
