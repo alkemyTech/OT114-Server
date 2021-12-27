@@ -46,6 +46,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
+        [Route("public")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(Organization _organization)
         {
