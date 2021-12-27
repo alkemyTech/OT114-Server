@@ -17,6 +17,19 @@ namespace OngProject.Repositories
             _dbContext = context;
         }
 
+        public override List<Organization> GetAll()
+        {
+            return DbSet.Where(o => o.deletedAt == null).ToList();
+        }
+
+        public override Organization GetById(int id)
+        {
+            var media = DbSet.Include(x => x.Miembros.FacebookUrl)
+                               .Include(x => x.Miembros.InstagramUrl)
+                               .Include(x => x.Miembros.LinkedinUrl).FirstOrDefault(x => x.Id == id);
+
+            return media;
+        }
 
         public override Organization Delete(int id)
         {
@@ -35,6 +48,6 @@ namespace OngProject.Repositories
                 throw new Exception("La Organizacion no existe");
             }
 
-
         }
+    }
 }
