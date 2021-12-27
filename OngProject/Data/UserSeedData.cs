@@ -1,9 +1,13 @@
-# base-ong-server-csharp
-Repositorio base para Caso ONG de C#
-tratando de cambiar el nombre de la branch
+﻿using Microsoft.EntityFrameworkCore;
+using OngProject.Models;
 
-
-Usuarios Estandar y Usuarios Regulares modelo:
+namespace OngProject.Data
+{
+    public static class UserSeedData
+    {
+        public static void UserSeed(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     IdUser = 1,                    
@@ -324,5 +328,7 @@ Usuarios Estandar y Usuarios Regulares modelo:
                 }
 
 
-
-
+                );
+        }
+    }
+}

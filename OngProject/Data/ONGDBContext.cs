@@ -32,6 +32,8 @@ namespace OngProject.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Seed();
+            modelBuilder.UserSeed();
+            modelBuilder.MembersSeed();
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
