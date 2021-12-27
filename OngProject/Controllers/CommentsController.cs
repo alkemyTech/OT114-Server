@@ -93,14 +93,15 @@ namespace OngProject.Controllers
         [Route("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var comment = await _commentsService.Delete(id);
+            var comment = await _commentsService.GetById(id);
+
             var UserID = comment.UserId;
-            if (comment == null)
+            
+            if(comment == null)
             {
                 return StatusCode(404);
             }
             
-            //TO DO: revisar
             if (UserID.IdUser == id)
             {
                 return Ok(comment);
