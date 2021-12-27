@@ -142,6 +142,7 @@ namespace OngProject
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OngProject v1"));
             }
             app.UseMiddleware<UserMiddleware>();
+            app.UseMiddleware<OwnershipMiddleware>();
 
             app.UseHttpsRedirection();
 
