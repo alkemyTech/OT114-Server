@@ -15,6 +15,7 @@ namespace OngProject.Controllers
     public class MemberController : ControllerBase
     {
         private readonly IMemberService _memberService;
+        private readonly int records = 10;
 
         public MemberController(IMemberService memberService)
         {
@@ -48,16 +49,26 @@ namespace OngProject.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<Member>>> GetAll()
+        public async Task<ActionResult<List<Member>>> GetAll(int? pages)
         {
+            int _page = pages ?? 1;
             var members = await _memberService.GetAll();
+            decimal totalRecords = members.Count();
             if (members.Count == 0)
             {
                 return NotFound();
             }
-
-            return Ok(members);
+            int total_pages = Convert.ToInt32(Math.Ceiling(totalRecords / records));
+            var query = members.Skip((_page - 1) * records).Take(records).ToList();
+            return Ok(new
+            {
+                pages = total_pages,
+                records = query,
+                current_page = _page
+            }
+                );
         }
+      
 
         /// <summary>
         /// Create a member in the system
