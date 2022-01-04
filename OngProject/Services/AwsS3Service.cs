@@ -17,6 +17,10 @@ namespace OngProject.Services
         private string accessKeyId;
         private string secretAccessKey;
         private string region;
+        public AwsS3Service()
+        {
+
+        }
         public AwsS3Service(IConfiguration configuration)
         {
             this.bucket = configuration["AWSS3:BUCKET"];

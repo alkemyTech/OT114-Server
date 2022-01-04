@@ -18,14 +18,14 @@ namespace OngProject.Repositories
         }
 
 
-        public override List<Testimonials> GetAll()
+        public async override Task<List<Testimonials>> GetAll()
         {
-            var TestimonialActive = _dbContext.Testimonials.Where(c => c.DeletedAt == null);
-            return (List<Testimonials>)TestimonialActive;
+            var TestimonialActive =await _dbContext.Testimonials.Where(c => c.DeletedAt == null).ToListAsync();
+            return (TestimonialActive);
         }
-        public override Testimonials Delete(int id)
+        public async override Task<Testimonials> Delete(int id)
         {
-            Testimonials TestiToDelete = _dbContext.Find<Testimonials>(id);
+            Testimonials TestiToDelete = await _dbContext.FindAsync<Testimonials>(id);
             if ((TestiToDelete == null) || (TestiToDelete.DeletedAt != null))
             {
                 throw new Exception("el comentario no existe");
@@ -35,7 +35,7 @@ namespace OngProject.Repositories
                 TestiToDelete.DeletedAt = DateTime.Now;
                 _dbContext.Attach(TestiToDelete);
                 _dbContext.Entry(TestiToDelete).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return TestiToDelete;
             }
         }

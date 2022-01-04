@@ -12,6 +12,10 @@ namespace OngProject.Services
     {
         private readonly ISendGridClient _sendGridClient;
 
+        public MailService()
+        {
+
+        }
         public MailService(ISendGridClient sendGridClient)
         {
             _sendGridClient = sendGridClient;

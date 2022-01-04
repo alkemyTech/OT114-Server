@@ -8,7 +8,6 @@ namespace OngProject.Models
 {
     public class Member
     {
-        [Required]
         public int Id { get; set; }
 
         [Required]

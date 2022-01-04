@@ -12,6 +12,10 @@ namespace OngProject.Services
     public class CategoryService : ICategoryService
     {
         private readonly UOW _unitOfWork;
+        public CategoryService()
+        {
+
+        }
         public CategoryService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -19,27 +23,27 @@ namespace OngProject.Services
 
         public async Task<List<Category>> GetAll()
         {
-            var category = _unitOfWork.CategoryRepository.GetAll();
+            var category =await _unitOfWork.CategoryRepository.GetAll();
             return category.ToList();
         }
         public async Task<Category> GetById(int id)
         {
-            var category = _unitOfWork.CategoryRepository.GetById(id);
+            var category =await _unitOfWork.CategoryRepository.GetById(id);
             return category;
         }
         public async Task<Category> Insert(Category cat)
         {
-            var category = _unitOfWork.CategoryRepository.Add(cat);
+            var category =await _unitOfWork.CategoryRepository.Add(cat);
             return category;
         }
         public async Task<Category> Delete(int id)
         {
-            var category = _unitOfWork.CategoryRepository.Delete(id);
+            var category =await _unitOfWork.CategoryRepository.Delete(id);
             return category;
         }
         public async Task<Category> Update(Category cat)
         {
-            var category = _unitOfWork.CategoryRepository.Update(cat);
+            var category =await _unitOfWork.CategoryRepository.Update(cat);
             return category;
         }
     }

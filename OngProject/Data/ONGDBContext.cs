@@ -23,6 +23,11 @@ namespace OngProject.Data
                 Image = "Sin Imagen",
                 DeletedAt = DateTime.Now
             });
+            modelBuilder.Entity<Organization>()
+                .HasOne(b => b.Slide)
+                .WithOne(i => i.Organization)
+                .HasForeignKey<Slide>(b => b.OrganizationId);
+
             modelBuilder.Entity<User>(entity => {
                 entity.HasIndex(e => e.Email).IsUnique();
             });
@@ -45,5 +50,6 @@ namespace OngProject.Data
         public DbSet<Comments> Comments { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<Organization> organizations { get; set; }
     }
 }

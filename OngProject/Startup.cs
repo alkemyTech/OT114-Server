@@ -20,6 +20,7 @@ using OngProject.Middlewares;
 using System.Reflection;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace OngProject
 {
@@ -63,6 +64,9 @@ namespace OngProject
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OngProject", Version = "v1" });
+                
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -138,11 +142,21 @@ namespace OngProject
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OngProject v1"));
+
             }
-            app.UseMiddleware<UserMiddleware>();
-            app.UseMiddleware<OwnershipMiddleware>();
+
+            //Habilitar swagger
+            app.UseSwagger();
+
+            //indica la ruta para generar la configuración de swagger
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "OngProject v1");
+            });
+
+            //app.UseMiddleware<UserMiddleware>();
+            //app.UseMiddleware<OwnershipMiddleware>();
+
 
             app.UseHttpsRedirection();
 

@@ -17,23 +17,23 @@ namespace OngProject.Repositories
             _dbContext = context;
         }
 
-        public override Organization GetById(int id)
+        public async override Task<Organization> GetById(int id)
         {
-            return DbSet.Include(x => x.Slide)
+            return await DbSet.Include(x => x.Slide)
                 .OrderBy(p=>p.Slide.Order)
-                .FirstOrDefault(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public override Organization Delete(int id)
+        public async override Task<Organization> Delete(int id)
         {
-            Organization OrgToDelete = _dbContext.Find<Organization>(id);
+            Organization OrgToDelete =await _dbContext.FindAsync<Organization>(id);
 
             if (OrgToDelete is not null)
             {
                 OrgToDelete.deletedAt = DateTime.Now;
                 _dbContext.Attach(OrgToDelete);
                 _dbContext.Entry(OrgToDelete).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return OrgToDelete;
             }
             else

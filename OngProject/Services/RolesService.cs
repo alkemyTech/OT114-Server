@@ -4,6 +4,7 @@ using OngProject.Repositories;
 using OngProject.Services.Interfaces;
 using OngProject.UnitOfWork;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OngProject.Services
 {
@@ -11,6 +12,10 @@ namespace OngProject.Services
     {
         private readonly UOW _unitOfWork;
 
+        public RolesService()
+        {
+
+        }
         public RolesService(ONGDBContext dbContext) 
         {
 
@@ -22,29 +27,29 @@ namespace OngProject.Services
         }
 
       
-        public Roles AddRoles(Roles roles)
+        public async Task<Roles> AddRoles(Roles roles)
         {
-            return _unitOfWork.RolesRepository.Add(roles);
+            return await _unitOfWork.RolesRepository.Add(roles);
         }
 
-        public Roles DeleteRoles(int id)
+        public async Task<Roles> DeleteRoles(int id)
         {
-            return _unitOfWork.RolesRepository.Delete(id);
+            return await _unitOfWork.RolesRepository.Delete(id);
         }
 
-        public Roles GetById(int id)
+        public async Task<Roles> GetById(int id)
         {
-            return _unitOfWork.RolesRepository.GetById(id);
+            return await _unitOfWork.RolesRepository.GetById(id);
         }
 
-        public List<Roles> GetRoles()
+        public async Task<List<Roles>> GetRoles()
         {
-            return _unitOfWork.RolesRepository.GetAll();
+            return await _unitOfWork.RolesRepository.GetAll();
         }
 
-        public Roles UpdateRoles(Roles roles)
+        public async Task<Roles> UpdateRoles(Roles roles)
         {
-            return _unitOfWork.RolesRepository.Update(roles);
+            return await _unitOfWork.RolesRepository.Update(roles);
         }
     }
 }

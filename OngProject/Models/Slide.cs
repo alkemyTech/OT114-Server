@@ -22,7 +22,7 @@ namespace OngProject.Models
 
         public DateTime? DeletedAt { get; set; }
 
-        [Required]
+        public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
     }
 }

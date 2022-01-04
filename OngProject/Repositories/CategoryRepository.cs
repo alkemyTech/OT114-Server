@@ -19,14 +19,14 @@ namespace OngProject.Repositories
             _dbContext = context;
         }
 
-        public override List<Category> GetAll()
+        public async override Task<List<Category>> GetAll()
         {
-            return _dbContext.Categories.Where(cate => cate.deletedAt == null).ToList();
+            return await _dbContext.Categories.Where(cate => cate.deletedAt == null).ToListAsync();
         }
 
-        public override Category Delete(int id)
+        public async override Task<Category> Delete(int id)
         {
-            Category category = _dbContext.Find<Category>(id);
+            Category category =await _dbContext.FindAsync<Category>(id);
 
             if ((category == null) || (category.deletedAt != null))
             {
@@ -37,7 +37,7 @@ namespace OngProject.Repositories
                 category.deletedAt = DateTime.Now;
                 _dbContext.Attach(category);
                 _dbContext.Entry(category).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+               await _dbContext.SaveChangesAsync();
                 return category;
             }
         }

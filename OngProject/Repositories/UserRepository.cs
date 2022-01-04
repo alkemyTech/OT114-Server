@@ -4,6 +4,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OngProject.Repositories
 {
@@ -15,15 +16,15 @@ namespace OngProject.Repositories
             _context = context;
         }
 
-        public override List<User> GetAll()
+        public async override Task<List<User>> GetAll()
         {
-            var UserActive = _context.Users.Where(c => c.DeletedAt == null);
-            return (List<User>)UserActive; //no lo probé
+            var UserActive =await _context.Users.Where(c => c.DeletedAt == null).ToListAsync();
+            return (UserActive); //no lo probé
         }
 
-        public override User Delete(int id)
+        public async override Task<User> Delete(int id)
         {
-            User usuario = _context.Find<User>(id);
+            User usuario =await _context.FindAsync<User>(id);
 
             if ((usuario == null) || (usuario.DeletedAt != null))
             {
@@ -34,7 +35,7 @@ namespace OngProject.Repositories
                 usuario.DeletedAt = DateTime.Now;
                 _context.Attach(usuario);
                 _context.Entry(usuario).State = EntityState.Modified;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return usuario;
             }
         }

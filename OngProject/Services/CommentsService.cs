@@ -11,38 +11,42 @@ namespace OngProject.Services
     {
         private readonly UOW _unitOfWork;
 
+        public CommentsService()
+        {
+
+        }
         public CommentsService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public Task<Comments> Delete(int id)
+        public async Task<Comments> Delete(int id)
         {
-            var comment = _unitOfWork.CommentsRepository.Delete(id);
-            return comment();
+            var comment =await _unitOfWork.CommentsRepository.Delete(id);
+            return comment;
         }
 
-        public Task<List<Comments>> GetAll()
+        public async Task<List<Comments>> GetAll()
         {
-            var comment = _unitOfWork.CommentsRepository.GetAll();
+            var comment =await _unitOfWork.CommentsRepository.GetAll();
             return comment.ToList();
         }
 
-        public Task<Comments> GetById(int id)
+        public async Task<Comments> GetById(int id)
         {
-            var comment = _unitOfWork.CommentsRepository.GetById(id);
+            var comment =await _unitOfWork.CommentsRepository.GetById(id);
             return comment;
         }
 
-        public Task<Comments> Insert(Comments comments)
+        public async Task<Comments> Insert(Comments comments)
         {
-            var comment = _unitOfWork.CommentsRepository.Add(comments);
+            var comment =await _unitOfWork.CommentsRepository.Add(comments);
             return comment;
         }
 
-        public Task<Comments> Update(Comments comments)
+        public async Task<Comments> Update(Comments comments)
         {
-            var comment = _unitOfWork.CommentsRepository.Update(comments);
+            var comment =await _unitOfWork.CommentsRepository.Update(comments);
             return comment;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Models;
 using OngProject.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace OngProject.Controllers
 {
@@ -19,9 +20,9 @@ namespace OngProject.Controllers
 
         [HttpGet]
         [Route("/ObtenerRoles")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var roles = _rolesService.GetRoles();
+            var roles = await _rolesService.GetRoles();
             if (id != 0)
             {
                 var role = _rolesService.GetById(id);
@@ -48,14 +49,14 @@ namespace OngProject.Controllers
 
         [HttpPut]
         [Route("/ActualizarRoles")]
-        public IActionResult Put(Roles roles)
+        public async Task<IActionResult> Put(Roles roles)
         {
-            var rolesEdit = _rolesService.GetById(roles.Id);
+            var rolesEdit =await _rolesService.GetById(roles.Id);
             if (rolesEdit == null) return NotFound($"El rol con Id {roles.Id} no existe :(");
             rolesEdit.Name = roles.Name;
             rolesEdit.Description = roles.Description;
 
-            _rolesService.UpdateRoles(rolesEdit);
+            await _rolesService.UpdateRoles(rolesEdit);
             return Ok(rolesEdit);
         }
 

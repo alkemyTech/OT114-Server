@@ -11,6 +11,10 @@ namespace OngProject.Services
     public class ActivityService : IActivityService
     {
         private readonly UOW _unitOfWork;
+        public ActivityService()
+        {
+
+        }
         public ActivityService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -18,28 +22,28 @@ namespace OngProject.Services
 
         public async Task<List<Activity>> GetAll()
         {
-            var activity = _unitOfWork.ActivityRepository.GetAll();
+            var activity = await _unitOfWork.ActivityRepository.GetAll();
             return activity.ToList();
         }
         public async Task<Activity> GetById(int id)
         {
-            var activity = _unitOfWork.ActivityRepository.GetById(id);
+            var activity =await _unitOfWork.ActivityRepository.GetById(id);
             return activity;
         }
         public async Task<Activity> Insert(Activity cat)
         {
-            var activity = _unitOfWork.ActivityRepository.Add(cat);
+            var activity =await _unitOfWork.ActivityRepository.Add(cat);
             return activity;
         }
 
-        public virtual void Delete(int id)
+        public async  virtual void Delete(int id)
         {
-            _unitOfWork.ActivityRepository.Delete(id);
+          await  _unitOfWork.ActivityRepository.Delete(id);
         }
 
         public async Task<Activity> Update(Activity cat)
         {
-            var activity = _unitOfWork.ActivityRepository.Update(cat);
+            var activity =await _unitOfWork.ActivityRepository.Update(cat);
             return activity;
         }
     }

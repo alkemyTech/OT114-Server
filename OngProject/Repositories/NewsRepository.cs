@@ -19,14 +19,14 @@ namespace OngProject.Repositories
             _context = context;
         }
 
-        public override List<News> GetAll()
+        public async override Task<List<News>> GetAll()
         {
-            return DbSet.Where(x => x.DeletedAt == null).ToList();
+            return await DbSet.Where(x => x.DeletedAt == null).ToListAsync();
         }
 
-        public override News Delete(int id)
+        public async override Task<News> Delete(int id)
         {
-            News news = _context.Find<News>(id);
+            News news =await _context.FindAsync<News>(id);
             if (news == null || news.DeletedAt != null)
             {
                 throw new Exception("La novedad no existe.");
@@ -34,7 +34,7 @@ namespace OngProject.Repositories
             news.DeletedAt = DateTime.Now;
             _context.Attach(news);
             _context.Entry(news).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return news;
         }
     }

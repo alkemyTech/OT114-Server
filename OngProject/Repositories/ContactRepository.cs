@@ -15,13 +15,13 @@ namespace OngProject.Repositories
         {
             _context = context;
         }
-        public override List<Contact> GetAll()
+        public async override Task<List<Contact>> GetAll()
         {
-            return DbSet.Where(c => c.DeletedAt == null).ToList();
+            return await DbSet.Where(c => c.DeletedAt == null).ToListAsync();
         }
-        public override Contact Delete(int id)
+        public async override Task<Contact> Delete(int id)
         {
-            Contact contact = _context.Find<Contact>(id);
+            Contact contact =await _context.FindAsync<Contact>(id);
 
             if ((contact == null) || (contact.DeletedAt != null))
             {
@@ -32,7 +32,7 @@ namespace OngProject.Repositories
                 contact.DeletedAt = DateTime.Now;
                 _context.Attach(contact);
                 _context.Entry(contact).State = EntityState.Modified;
-                _context.SaveChanges();
+               await _context.SaveChangesAsync();
                 return contact;
             }
         }

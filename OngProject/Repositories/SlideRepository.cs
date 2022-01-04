@@ -16,18 +16,18 @@ namespace OngProject.Repositories
             _context = context;
         }
         
-         public override List<Slide> GetAll()
+         public async override Task<List<Slide>> GetAll()
         {
-            return DbSet.Where(m => m.DeletedAt == null).ToList();
+            return await DbSet.Where(m => m.DeletedAt == null).ToListAsync();
         }
         
-        public override Slide GetById(int id)
+        public async override Task<Slide> GetById(int id)
         {
-            return DbSet.Include(x => x.Organization).FirstOrDefault(x => x.Id == id);
+            return await DbSet.Include(x => x.Organization).FirstOrDefaultAsync(x => x.Id == id);
         }
-        public override Slide Delete(int id)
+        public async override Task<Slide> Delete(int id)
         {
-            var slide = _context.Find<Slide>(id);
+            var slide =await _context.FindAsync<Slide>(id);
             if (slide == null || slide.DeletedAt != null)
             {
                  throw new Exception("El Slide no existe.");
@@ -37,7 +37,7 @@ namespace OngProject.Repositories
                 slide.DeletedAt = DateTime.Now;
                 _context.Attach(slide);
                 _context.Entry(slide).State = EntityState.Modified;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             return slide;
         }

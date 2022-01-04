@@ -15,13 +15,13 @@ namespace OngProject.Repositories
         {
             _context = context;
         }
-        public override List<Member> GetAll()
+        public async override Task<List<Member>> GetAll()
         {
-            return DbSet.Where(m => m.DeletedAt == null).ToList();
+            return await DbSet.Where(m => m.DeletedAt == null).ToListAsync();
         }
-        public override Member Delete(int id)
+        public async override Task<Member> Delete(int id)
         {
-            Member member = _context.Find<Member>(id);
+            Member member =await _context.FindAsync<Member>(id);
 
             if ((member == null) || (member.DeletedAt != null))
             {

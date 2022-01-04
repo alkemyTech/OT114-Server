@@ -14,33 +14,37 @@ namespace OngProject.Services
     public class UserService : IUserService
     {
         private readonly UOW _unitOfWork;
+        public UserService()
+        {
+
+        }
         public UserService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         public async Task<List<User>> GetAll()
         {
-            var user = _unitOfWork.UserRepository.GetAll();
+            var user =await _unitOfWork.UserRepository.GetAll();
             return user.ToList();
         }
         public async Task<User> GetById(int id)
         {
-            var user = _unitOfWork.UserRepository.GetById(id);
+            var user =await _unitOfWork.UserRepository.GetById(id);
             return user;
         }
         public async Task<User> Insert(User u)
         {
-            var user = _unitOfWork.UserRepository.Add(u);
+            var user =await _unitOfWork.UserRepository.Add(u);
             return user;
         }
         public async Task<User> Delete(int id)
         {
-            var user = _unitOfWork.UserRepository.Delete(id);
+            var user =await _unitOfWork.UserRepository.Delete(id);
             return user;
         }
         public async Task<User> Update(User u)
         {
-            var user = _unitOfWork.UserRepository.Update(u);
+            var user =await _unitOfWork.UserRepository.Update(u);
             return user;
         }
     }

@@ -20,9 +20,10 @@ namespace OngProject.Middlewares
         {
             User user = context.Items["User"] != null ? context.Items["User"] as User : null;
 
+
             if (user.roleID.Id == 1 || user.roleID.Id == 2)
             {
-                await _next.Invoke(context); 
+                await _next.Invoke(context);
             }
             else
             {

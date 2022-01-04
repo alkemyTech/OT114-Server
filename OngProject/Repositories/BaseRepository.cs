@@ -25,35 +25,35 @@ namespace OngProject.Repositories
 
         }
 
-        public virtual List<TEntity> GetAll()
+        public async virtual Task<List<TEntity>> GetAll()
         {
-            return _dbContext.Set<TEntity>().ToList();
+            return await _dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public virtual TEntity GetById(int id)
+        public async virtual Task<TEntity> GetById(int id)
         {
-            return _dbContext.Set<TEntity>().Find(id);
+            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
-        public TEntity Add(TEntity entity)
+        public async Task<TEntity> Add(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Add(entity);
-            _dbContext.SaveChanges();
+          await  _dbContext.Set<TEntity>().AddAsync(entity);
+          await  _dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public TEntity Update(TEntity entity)
+        public async Task<TEntity> Update(TEntity entity)
         {
-            _dbContext.Attach(entity); //traquea una entidad - toman la entidad
+             _dbContext.Attach(entity); //traquea una entidad - toman la entidad
             _dbContext.Entry(entity).State = EntityState.Modified; //traquea los cambios
-            _dbContext.SaveChanges();
+           await _dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public virtual TEntity Delete(int id)
+        public async virtual Task<TEntity> Delete(int id)
         {
-            TEntity entity = _dbContext.Find<TEntity>(id);
-            _dbContext.Remove(entity);
+            TEntity entity = await _dbContext.FindAsync<TEntity>(id);
+             _dbContext.Remove(entity);
             return entity;
 
         }		

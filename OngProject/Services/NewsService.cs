@@ -12,37 +12,41 @@ namespace OngProject.Services
     {
         private readonly UOW _unitOfWork;
 
+        public NewsService()
+        {
+
+        }
         public NewsService(UOW unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         public async Task<List<News>> GetAll()
         {
-            var newsList = _unitOfWork.NewsRepository.GetAll();
+            var newsList = await _unitOfWork.NewsRepository.GetAll();
             return newsList.ToList();
         }
 
         public async Task<News> GetById(int id)
         {
-            var news = _unitOfWork.NewsRepository.GetById(id);
+            var news =await _unitOfWork.NewsRepository.GetById(id);
             return news;
         }
 
         public async Task<News> Insert(News news)
         {
-            var CreateNews = _unitOfWork.NewsRepository.Add(news);
+            var CreateNews =await _unitOfWork.NewsRepository.Add(news);
             return CreateNews;
         }
 
         public async Task<News> Delete(int id)
         {
-            var news = _unitOfWork.NewsRepository.Delete(id);
+            var news =await _unitOfWork.NewsRepository.Delete(id);
             return news;
         }
 
         public async Task<News> Update(News news)
         {
-            var EditNews = _unitOfWork.NewsRepository.Update(news);
+            var EditNews =await _unitOfWork.NewsRepository.Update(news);
             return EditNews;
         }
     }

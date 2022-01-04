@@ -9,7 +9,9 @@ namespace OngProject.Middlewares
     {
         private readonly RequestDelegate _siguiente;
 
+#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
         public UserMiddleware(RequestDelegate siguiente)
+#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
         {
             _siguiente = siguiente;
         }

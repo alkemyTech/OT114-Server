@@ -1,0 +1,434 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OngProject</name>
+    </assembly>
+    <members>
+        <member name="T:OngProject.Controllers.ActivityController">
+            <summary>
+            Controller for save, read, update or delete activities
+            </summary>
+        </member>
+        <member name="M:OngProject.Controllers.ActivityController.GetAll">
+             <summary>
+             Gets a list of all activities
+             </summary>
+             <returns>All activities or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 GET: api/Activity
+                 {
+                    "Id": 1,
+                    "Name": "FFFF",
+                    "Content" : "FFFF",
+                    "Image": "img",
+                    "deletedAt" : null
+                 }
+            
+             </remarks>
+             <response code="200">OK. Returns a list of all activities</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+             <response code="404">NotFound. Objects not found.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.ActivityController.Post(OngProject.Models.Activity)">
+             <summary>
+             Creates an activity
+             </summary>
+             <returns>OK with the new object, or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 POST: api/Activity
+                 {
+                    "Id": 1,
+                    "Name": "FFFF",
+                    "Content" : "FFFF",
+                    "Image": "img",
+                   
+                 }
+            
+             </remarks>
+             <response code="200">OK. Success, returns a new object.</response>
+             <response code="204">NoContent. </response>
+             <response code="400">BadRequest. Object not created, incorrect format.</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.ActivityController.Put(OngProject.Models.Activity)">
+             <summary>
+             Updates an activity
+             </summary>
+             <returns>OK with updated object, or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 PUT: api/Activity
+                 {
+                    "Id": 1,
+                    "Name": "FFFF",
+                    "Content" : "FFFF",
+                    "Image": "img",
+                    
+                 }
+            
+             </remarks>
+             <response code="200">OK. Success, returns a new object.</response>
+             <response code="400">BadRequest. Object not created, incorrect format.</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+             <response code="404">NotFound. Object not found.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.ActivityController.Delete(System.Int32)">
+             <summary>
+             Deletes an activity
+             </summary>
+             <returns>OK or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 Delete: api/Activity/1
+                 {
+                    "Id": 1,
+                    
+                 }
+            
+             </remarks>
+             <response code="200">OK. Success.</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+             <response code="404">NotFound. Object not found.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="T:OngProject.Controllers.AuthenticationController">
+            <summary>
+            Controller for User details, register and login
+            </summary>
+        </member>
+        <member name="M:OngProject.Controllers.AuthenticationController.GetMe(System.String,System.String)">
+             <summary>
+             Gets a user details
+             </summary>
+             <returns>A user or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 GET: api/me
+                 {
+                    "IdUser" : 1,
+                    "FirstName" : "FFFF" ,
+                    "LastName" : "FFFF",
+                    "Email" : "FFFF@FFFF.COM",
+                    "Password" : "FFFF",
+                    "Photo" : "IMG1",
+                    "DeletedAt" : "NULL",
+                    "roleID" : 1,
+                    "MyToken" : "FFFF",
+                 }
+            
+             </remarks>
+             <response code="200">OK. Returns a user.</response>
+             <response code="400">BadRequest. Incorrect format.</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+             <response code="404">NotFound. Objects not found.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.AuthenticationController.Register(System.String,System.String,System.String)">
+             <summary>
+             Creates a user
+             </summary>
+             <returns>A user token, or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 POST: api/register
+                 {
+                    "name": "FFFF",
+                    "password": "FFFF",
+                    "email" : "FFFF@FFFF.com"
+                 }
+            
+             </remarks>
+             <response code="200">OK. Success, returns a token.</response>
+             <response code="400">BadRequest. Object not created, incorrect format.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.AuthenticationController.Login(System.String,System.String)">
+             <summary>
+             Login a user
+             </summary>
+             <returns>A user token, or an error</returns>
+             <remarks>
+             Sample request:
+            
+                 POST: api/login
+                 {
+                    "name": "FFFF",
+                    "password": "FFFF",
+                 }
+            
+             </remarks>
+             <response code="200">OK. Success, returns a token.</response>
+             <response code="400">BadRequest. Incorrect format.</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.MemberController.GetAll(System.Nullable{System.Int32})">
+             <summary>
+             Get all members in the system
+             </summary>
+             <returns>A list of members</returns>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "id": 1,
+                    "Name": "Item #1",
+                    "FacebookUrl" : "www.facebook.com/Example",
+                    "InstagramUrl" : "www.instagram.com/Example",
+                    "LinkedinUrl" : "www.Linkedin.com/Example",
+                    "Image" : "Empty",
+                    "Description" : "AddADescriptionHere",
+                    "DeletedAt" : "null"
+                    
+                 }
+            
+             </remarks>
+             <response code="200">Returns a list of members</response>
+             <response code="404">If the members do not exist</response>
+        </member>
+        <member name="M:OngProject.Controllers.MemberController.Post(OngProject.Models.Member)">
+             <summary>
+             Create a member in the system
+             </summary>
+             <returns>A new Member</returns>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "id": 1,
+                    "Name": "Item #1",
+                    "FacebookUrl" : "www.facebook.com/Example",
+                    "InstagramUrl" : "www.instagram.com/Example",
+                    "LinkedinUrl" : "www.Linkedin.com/Example",
+                    "Image" : "Empty",
+                    "Description" : "AddADescriptionHere"
+                    
+                 }
+            
+             </remarks>
+             <response code="201">the member was created successfully</response>
+             <response code="400">Unable to create the member  due to validation error</response>
+        </member>
+        <member name="M:OngProject.Controllers.MemberController.Put(OngProject.Models.Member)">
+             <summary>
+             Edit a member in the system
+             </summary>
+             <returns>Edited Member</returns>
+             <remarks>
+             Sample request:
+            
+                 PUT
+                 {
+                    "id": 1,
+                    "Name": "Item #1",
+                    "FacebookUrl" : "www.facebook.com/Example",
+                    "InstagramUrl" : "www.instagram.com/Example",
+                    "LinkedinUrl" : "www.Linkedin.com/Example",
+                    "Image" : "Empty",
+                    "Description" : "AddADescriptionHere"
+                    
+                 }
+            
+             </remarks>
+             <response code="200">the member was edited successfully</response>
+             <response code="404">Unable to edit the member do not exist</response>
+        </member>
+        <member name="M:OngProject.Controllers.MemberController.Delete(System.Int32)">
+             <summary>
+             delete a member in the system
+             </summary>
+             <returns>deleted Member</returns>
+             <remarks>
+             Sample request:
+            
+                 DELETE
+                 {
+                    "id": 1
+                    
+                 }
+            
+             </remarks>
+             <response code="200">the member was deleted successfully</response>
+             <response code="404">Unable to delete the member do not exist</response>
+        </member>
+        <member name="M:OngProject.Controllers.TestimonialController.GetAll">
+             <summary>
+             Get all Testimonials in the system
+             </summary>
+             <returns>A list of Testimonials</returns>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "Id": 1,
+                    "Name": "Item #1",
+                    "Image" : "Empty",
+                    "Content" : "AddAContent",
+                    "DeletedAt" : "null"       
+                 }
+            
+             </remarks>
+             <response code="200">Returns a list of Testimonials</response>
+             <response code="404">If the Testimonial do not exist</response>
+        </member>
+        <member name="M:OngProject.Controllers.TestimonialController.Post(OngProject.Models.Testimonials)">
+             <summary>
+             Create a Testimonial in the system
+             </summary>
+             <returns>A new Testimonial</returns>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "Id": 1,
+                    "Name": "Item #1",
+                    "Image" : "Empty",
+                    "Content" : "AddAContent",
+                    "DeletedAt" : "null"
+                 }
+            
+             </remarks>
+             <response code="200">Returns a list of Users</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>        
+             <response code="403">If the user is prohibited from access</response>
+             <response code="404">If the testimonial don´t exist</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.TestimonialController.Put(System.Int32,OngProject.Models.Testimonials)">
+             <summary>
+             Edit a Testimonial in the system
+             </summary>
+             <returns>Edited Testimonial</returns>
+             <remarks>
+             Sample request:
+            
+                 PUT
+                 {
+                    "Id": 1,
+                    "Name": "Item #1",
+                    "Image" : "Empty",
+                    "Content" : "AddAContent",
+                 }
+            
+             </remarks>
+             <response code="200">Returns a list of Users</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>        
+             <response code="403">If the user is prohibited from access</response>
+             <response code="404">If the testimonial don´t exist</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.TestimonialController.Delete(System.Int32)">
+             <summary>
+             delete a Testimonial in the system
+             </summary>
+             <returns>deleted Testimonial</returns>
+             <remarks>
+             Sample request:
+            
+                 DELETE
+                 {
+                    "id": 1
+                    
+                 }
+            
+             </remarks>
+             <response code="200">Returns a list of Users</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>        
+             <response code="403">If the user is prohibited from access</response>
+             <response code="404">If the testimonial don´t exist</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.UserController.GetAll">
+             <summary>
+             Get all Users in the system
+             </summary>
+             <returns>A list of Users</returns>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "IdUser": 1,
+                    "FirstName": "Juan",
+                    "LastName" : "Gomez",
+                    "Email" : "JuanGomez@gmail.com",
+                    "Password" : "XXXX",
+                    "Photo" : "Empty",
+                    "roleId" : "idRoles",
+                    "DeletedAt" : "null"
+                    "MyToken" : "XXXX"
+                    
+                 }
+            
+             </remarks>
+             <response code="200">Returns a list of Users</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>        
+             <response code="403">If the user is prohibited from access</response>
+             <response code="404">If the user don´t exist</response>
+             <response code="500">Internal server error. An error occurred while processing your request.</response>
+        </member>
+        <member name="M:OngProject.Controllers.UserController.Patch(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{OngProject.Models.User})">
+             <summary>
+             Edit a User in the system
+             </summary>
+             <returns>Edited User</returns>
+             <remarks>
+             Sample request:
+            
+                 PATCH
+                 {
+                    "IdUser": 1,
+                    "FirstName": "Juan",
+                    "LastName" : "Gomez",
+                    "Email" : "JuanGomez@gmail.com",
+                    "Password" : "XXXX",
+                    "Photo" : "Empty",
+                    "roleId" : "idRoles",
+                    "DeletedAt" : "null"
+                    
+                 }
+            
+             </remarks>
+             <response code="200">the user was edited successfully</response>
+             <response code="401">Unauthorized. Unauthenticated user or wrong jwt token.</response>  
+             <response code="403">If the user is prohibited from access</response>
+             <response code="404">Unable to edit the user do not exist</response>
+        </member>
+        <member name="M:OngProject.Controllers.UserController.Delete(System.Int32)">
+             <summary>
+             delete a User in the system
+             </summary>
+             <returns>deleted User</returns>
+             <remarks>
+             Sample request:
+            
+                 DELETE
+                 {
+                    "id": 1
+                    
+                 }
+            
+             </remarks>
+             <response code="200">the User was deleted successfully</response>
+             <response code="404">Unable to delete the user don´t exist</response>
+        </member>
+        <member name="P:OngProject.Models.Comments.Body">
+            Consultar al mentor tipo de dato ///
+        </member>
+    </members>
+</doc>

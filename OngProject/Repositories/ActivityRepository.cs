@@ -16,16 +16,16 @@ namespace OngProject.Repositories
         {
             _dbContext = context;
         }
-        public override Activity Delete(int id)
+        public async override Task<Activity> Delete(int id)
         {
-            Activity ActiTodelete = _dbContext.Find<Activity>(id);
+            Activity ActiTodelete =await _dbContext.FindAsync<Activity>(id);
             if (ActiTodelete.deletedAt == null)
             {
                 ActiTodelete.deletedAt = DateTime.Now;
             }
             _dbContext.Attach(ActiTodelete);
             _dbContext.Entry(ActiTodelete).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return ActiTodelete;
         }
     }
